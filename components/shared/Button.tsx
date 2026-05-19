@@ -22,9 +22,9 @@ export default function Button({
 
     const variants = {
         primary:
-            "bg-primary border border-primary text-surface hover:border-primary-hover hover:bg-primary-hover",
+            "bg-primary border text-white border-primary hover:border-primary-hover hover:bg-primary-hover hover:-translate-y-1",
         outline:
-            "bg-transparent text-text-main border border-text-muted hover:text-primary hover:border-primary",
+            "bg-transparent text-text-main border border-text-muted hover:text-gig hover:border-gig",
         ghost: "bg-transparent text-text-main hover:bg-gray-100 border border-transparent",
     };
 

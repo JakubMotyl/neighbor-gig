@@ -50,7 +50,7 @@ export default function Navbar() {
             <div className="md:hidden flex">
                 <Button
                     onClick={toggleMenu}
-                    className="w-9 h-8 rounded-full! p-2! flex! flex-col! justify-between! bg-primary"
+                    className="w-9 h-8 rounded-full! p-2! flex! flex-col! justify-between! bg-primary hover:translate-y-0!"
                     ariaLabel={isMenuOpen ? "Zamknij menu" : "Otwórz menu"}
                 >
                     <div
