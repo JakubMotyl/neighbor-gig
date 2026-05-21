@@ -1,5 +1,3 @@
-// src/styles/theme.ts
-
 export const theme = {
     // 1. TYPOGRAPHY
     typography: {
@@ -36,5 +34,7 @@ export const theme = {
     interactions: {
         actionLink:
             "pt-6 flex items-center text-sm font-bold text-gig group-hover:text-gig-hover gap-1 group-hover:gap-2 transition-all duration-200",
+        navLink:
+            "relative text-base font-medium text-text-main transition-colors duration-300 hover:text-primary after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-full after:bg-primary after:scale-x-0 after:origin-left after:transition-transform after:duration-300 after:ease-out hover:after:scale-x-100",
     },
 };
