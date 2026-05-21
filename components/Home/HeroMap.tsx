@@ -11,6 +11,7 @@ export default function HeroMap() {
                 alt="Mapa okolicy z przykładowymi zleceniami sąsiedzkimi"
                 fill
                 priority
+                fetchPriority="high"
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 50vw"
             />

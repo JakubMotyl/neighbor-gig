@@ -2,22 +2,19 @@
 
 @theme {
     /* PRIMARY */
-    --color-primary: #2b57e3;
-    --color-primary-hover: #1d3fb5;
-    --color-primary-soft: #eef2ff;
+    --color-primary: #1e3a8a;
+    --color-primary-hover: #172554;
 
     /* GIG */
-    --color-gig: #f15a24;
-    --color-gig-hover: #c94617;
-    --color-gig-soft: #feefea;
+    --color-gig: #d44d0a;
+    --color-gig-hover: #a83808;
 
     /* COMMUNITY */
-    --color-community: #0a9b6c;
-    --color-community-hover: #077853;
-    --color-community-soft: #e6f6f1;
+    --color-community: #059669;
+    --color-community-hover: #047857;
 
-    /* BG & CARDS */
-    --color-background: #fbfbfc;
+    /* BG */
+    --color-background: #f8fafc;
     --color-surface: #ffffff;
 
     /* TEXT */
@@ -25,13 +22,14 @@
     --color-text-muted: #4b5563;
 
     /* FONTS */
-    --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+    --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
 }
 
 @layer base {
     body {
         background-color: var(--color-background);
         color: var(--color-text-main);
+        text-rendering: optimizeLegibility;
     }
 }
 

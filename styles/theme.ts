@@ -21,8 +21,7 @@ export const theme = {
         gridSplit:
             "w-full grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 2xl:gap-16 items-center",
 
-        sectionSpacing:
-            "px-default py-16 md:py-24 max-w-7xl mx-auto space-y-12 md:space-y-16",
+        sectionSpacing: "px-default py-16 md:py-24 space-y-12 md:space-y-16",
     },
 
     // 3. COMPONENTS
