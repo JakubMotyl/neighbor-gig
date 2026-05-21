@@ -1,9 +1,11 @@
-import React from "react";
 import Image from "next/image";
+import { theme } from "@/styles/theme";
 
 export default function HeroMap() {
     return (
-        <div className="relative w-full aspect-square lg:max-h-125 rounded-3xl overflow-hidden shadow-2xl border border-primary/25 select-none">
+        <div
+            className={`${theme.components.imageWrapper} aspect-square lg:max-h-125 border-primary/25`}
+        >
             <Image
                 src="/images/hero-map.png"
                 alt="Mapa okolicy z przykładowymi zleceniami sąsiedzkimi"

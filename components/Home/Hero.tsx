@@ -1,21 +1,20 @@
 import HeroMap from "./HeroMap";
 import Button from "../shared/Button";
+import { theme } from "@/styles/theme"; // ZMIEŃ ŚCIEŻKĘ JEŚLI TRZEBA
 
 export default function Hero() {
     return (
         <main className="px-default min-h-[calc(100dvh-4rem)] md:min-h-[calc(100dvh-4.5rem)] flex items-center py-8 md:py-12">
-            <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 2xl:gap-16 items-center">
+            <div className={theme.layout.gridSplit}>
                 {/* LEFT SIDE - TEXT */}
-
                 <div className="flex flex-col justify-center items-start space-y-8 2xl:space-y-10">
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl 2xl:text-6xl font-extrabold text-text-main leading-[1.15] tracking-tighter">
+                    <h1 className={theme.typography.heroTitle}>
                         Zleć to komuś z okolicy.{" "}
                         <br className="hidden lg:block" />
                         <span className="relative sm:whitespace-nowrap block sm:inline mt-2 sm:mt-0">
                             <span className="relative z-10 text-gig">
                                 Odzyskaj swój czas.
                             </span>
-
                             <svg
                                 className="absolute left-0 w-full h-3 -bottom-2 2xl:h-4 2xl:-bottom-3 text-primary"
                                 viewBox="0 0 100 10"
@@ -33,7 +32,7 @@ export default function Hero() {
                         </span>
                     </h1>
 
-                    <p className="text-base md:text-lg 2xl:text-xl text-text-muted max-w-lg 2xl:max-w-xl leading-relaxed">
+                    <p className={theme.typography.sectionSubtitle}>
                         Lokalna platforma drobnych usług. Połącz się ze
                         sprawdzonymi wykonawcami z Twojego sąsiedztwa, wyceń
                         zadanie i pozbądź się codziennych obowiązków.

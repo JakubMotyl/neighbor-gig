@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { Hammer, Heart, Truck, ArrowRight } from "lucide-react";
+import { theme } from "@/styles/theme";
 
 interface TaskCategory {
     id: string;
@@ -36,59 +37,57 @@ const POPULAR_CATEGORIES: TaskCategory[] = [
 
 export default function PopularTasks() {
     return (
-        <section className="px-default py-16 md:py-24 bg-background">
-            <div className="max-w-7xl mx-auto space-y-12 md:space-y-16">
-                <div className="text-center max-w-2xl mx-auto space-y-5">
-                    <span className="text-xs md:text-sm font-bold uppercase tracking-widest text-primary">
-                        Popularne
-                    </span>
-                    <h2 className="text-3xl md:text-4xl font-extrabold text-text-main tracking-tight">
-                        Zadania czekające na Ciebie
-                    </h2>
-                    <p className="text-base md:text-lg text-text-muted">
-                        Wybierz interesujący Cię obszar i zobacz aktywne
-                        zlecenia od sąsiadów z okolicy.
-                    </p>
-                </div>
+        <section className={theme.layout.sectionSpacing}>
+            <div className="text-center max-w-2xl mx-auto space-y-5 flex flex-col items-center">
+                <span
+                    className={`${theme.typography.sectionBadge} text-primary`}
+                >
+                    Popularne
+                </span>
+                <h2 className={theme.typography.sectionTitle}>
+                    Zadania czekające na Ciebie
+                </h2>
+                <p className={theme.typography.sectionSubtitle}>
+                    Wybierz interesujący Cię obszar i zobacz aktywne zlecenia od
+                    sąsiadów z okolicy.
+                </p>
+            </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-                    {POPULAR_CATEGORIES.map((category) => {
-                        const Icon = category.icon;
-                        return (
-                            <Link
-                                key={category.id}
-                                href={`/zlecenia?category=${category.slug}`}
-                                className="group relative flex flex-col justify-between p-6 lg:p-8 bg-surface rounded-2xl md:rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl hover:border-primary/20 hover:-translate-y-1 transition-all duration-300 select-none"
-                            >
-                                <div className="space-y-4">
-                                    <div
-                                        className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 text-gig-hover group-hover:bg-gig group-hover:text-surface transition-colors duration-300"
-                                        aria-hidden="true"
-                                    >
-                                        <Icon className="w-6 h-6" />
-                                    </div>
-
-                                    <div className="space-y-2">
-                                        <h3 className="text-xl font-bold text-text-main transition-colors duration-300">
-                                            {category.title}
-                                        </h3>
-                                        <p className="text-sm md:text-base text-text-muted leading-relaxed">
-                                            {category.description}
-                                        </p>
-                                    </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+                {POPULAR_CATEGORIES.map((category) => {
+                    const Icon = category.icon;
+                    return (
+                        <Link
+                            key={category.id}
+                            href={`/zlecenia?category=${category.slug}`}
+                            className={`${theme.components.card} hover:border-primary/20 hover:-translate-y-1`}
+                        >
+                            <div className="space-y-4">
+                                <div
+                                    className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 text-gig-hover group-hover:bg-gig group-hover:text-surface transition-colors duration-300"
+                                    aria-hidden="true"
+                                >
+                                    <Icon className="w-6 h-6" />
                                 </div>
-
-                                <div className="pt-6 flex items-center text-base font-bold text-gig-hover group-hover:text-gig gap-1 group-hover:gap-2 transition-all duration-200">
-                                    Przeglądaj zlecenia
-                                    <span className="sr-only">
-                                        z kategorii - {category.title}
-                                    </span>
-                                    <ArrowRight className="w-4 h-4" />
+                                <div className="space-y-2">
+                                    <h3 className="text-xl font-bold text-text-main transition-colors duration-300">
+                                        {category.title}
+                                    </h3>
+                                    <p className="text-sm md:text-base text-text-muted leading-relaxed">
+                                        {category.description}
+                                    </p>
                                 </div>
-                            </Link>
-                        );
-                    })}
-                </div>
+                            </div>
+                            <div className="pt-6 flex items-center text-base font-bold text-gig-hover group-hover:text-gig gap-1 group-hover:gap-2 transition-all duration-200">
+                                Przeglądaj zlecenia
+                                <span className="sr-only">
+                                    z kategorii - {category.title}
+                                </span>
+                                <ArrowRight className="w-4 h-4" />
+                            </div>
+                        </Link>
+                    );
+                })}
             </div>
         </section>
     );
