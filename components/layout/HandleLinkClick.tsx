@@ -16,16 +16,24 @@ export default function HandleLinkClick({ link }: HandleLinkClickProps) {
         e: React.MouseEvent<HTMLAnchorElement>,
         href: string,
     ) => {
-        if (href === "/#jak-to-dziala") {
-            e.preventDefault();
+        // Dynamic handling for all homepage internal anchor links
+        if (href.startsWith("/#")) {
+            const id = href.replace("/#", "");
 
-            if (pathname === "/") {
-                const element = document.getElementById("jak-to-dziala");
-                if (element) {
-                    element.scrollIntoView({ behavior: "smooth" });
+            // Supporting both dynamic sections seamlessly
+            if (id === "jak-to-dziala" || id === "faq") {
+                e.preventDefault(); // Stop native navigation
+
+                if (pathname === "/") {
+                    // Already on homepage -> execute smooth scroll immediately
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.scrollIntoView({ behavior: "smooth" });
+                    }
+                } else {
+                    // On another page -> push to homepage with clean query param
+                    router.push(`/?scroll=${id}`);
                 }
-            } else {
-                router.push("/?scroll=jak-to-dziala");
             }
         }
     };

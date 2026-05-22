@@ -13,6 +13,7 @@ export const FOOTER_LINKS: FooterGroup[] = [
         title: "Platforma",
         links: [
             { name: "Jak to działa", href: "/#jak-to-dziala" },
+            { name: "FAQ", href: "/#faq" },
             { name: "Kontakt", href: "/kontakt" },
         ],
     },

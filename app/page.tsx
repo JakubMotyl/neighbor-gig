@@ -4,6 +4,7 @@ import PopularTasks from "@/components/Home/PopularTasks";
 import TrustAndPro from "@/components/Home/TrustAndPro";
 import HowItWorks from "@/components/Home/HowItWorks";
 import ScrollHandler from "@/components/Home/ScrollHandler";
+import FaqSection from "@/components/Home/FaqSection";
 
 export default function HomePage() {
     return (
@@ -16,6 +17,7 @@ export default function HomePage() {
             <PopularTasks />
             <TrustAndPro />
             <HowItWorks />
+            <FaqSection />
         </>
     );
 }
