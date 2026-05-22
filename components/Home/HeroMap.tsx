@@ -7,7 +7,7 @@ export default function HeroMap() {
             className={`${theme.components.imageWrapper} aspect-square lg:max-h-125 border-primary/25`}
         >
             <Image
-                src="/images/hero-map.png"
+                src="/images/hero-map.webp"
                 alt="Mapa okolicy z przykładowymi zleceniami sąsiedzkimi"
                 fill
                 priority

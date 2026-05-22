@@ -1,6 +1,7 @@
 import HeroMap from "./HeroMap";
 import Button from "../shared/Button";
-import { theme } from "@/styles/theme"; // ZMIEŃ ŚCIEŻKĘ JEŚLI TRZEBA
+import { theme } from "@/styles/theme";
+import HeroActions from "./HeroActions";
 
 export default function Hero() {
     return (
@@ -38,22 +39,7 @@ export default function Hero() {
                         zadanie i pozbądź się codziennych obowiązków.
                     </p>
 
-                    <div className="flex flex-col sm:flex-row gap-4 pt-2 2xl:pt-4 w-full sm:w-auto">
-                        <Button
-                            href="/zlecenia"
-                            variant="primary"
-                            className="text-base md:text-lg 2xl:text-xl px-8 py-3 2xl:py-4 w-full sm:w-auto shadow-lg shadow-primary/25 hover:shadow-primary/40"
-                        >
-                            Znajdź pomoc
-                        </Button>
-                        <Button
-                            href="/jak-to-dziala"
-                            variant="outline"
-                            className="text-base md:text-lg 2xl:text-xl px-8 py-3 2xl:py-4 w-full sm:w-auto bg-surface"
-                        >
-                            Jak to działa?
-                        </Button>
-                    </div>
+                    <HeroActions />
                 </div>
 
                 {/* RIGHT SIDE - MAP */}

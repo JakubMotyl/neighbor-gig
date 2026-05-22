@@ -1,42 +1,6 @@
-import Link from "next/link";
 import Logo from "../shared/Logo";
-
-interface FooterLink {
-    name: string;
-    href: string;
-}
-
-interface FooterGroup {
-    title: string;
-    links: FooterLink[];
-}
-
-const FOOTER_LINKS: FooterGroup[] = [
-    {
-        title: "Platforma",
-        links: [
-            { name: "Jak to działa", href: "/jak-to-dziala" },
-            { name: "Kontakt", href: "/kontakt" },
-        ],
-    },
-    {
-        title: "Dla Użytkowników",
-        links: [
-            { name: "Zlecaj zadania", href: "/zlecenia" },
-            { name: "Zostań Wykonawcą", href: "/rejestracja" },
-            { name: "Gig-Boost", href: "/gig-boost" },
-            { name: "Bezpieczeństwo", href: "/bezpieczenstwo" },
-        ],
-    },
-    {
-        title: "Informacje prawne",
-        links: [
-            { name: "Regulamin", href: "/regulamin" },
-            { name: "Polityka prywatności", href: "/polityka-prywatnosci" },
-            { name: "Polityka Cookies", href: "/cookies" },
-        ],
-    },
-];
+import HandleLinkClick from "./HandleLinkClick";
+import { FOOTER_LINKS } from "@/constants/footer-navigation";
 
 export default function Footer() {
     return (
@@ -50,12 +14,7 @@ export default function Footer() {
                         <ul className="flex flex-col space-y-3">
                             {group.links.map((link) => (
                                 <li key={link.name}>
-                                    <Link
-                                        href={link.href}
-                                        className="text-sm text-text-muted hover:text-primary transition-colors duration-200"
-                                    >
-                                        {link.name}
-                                    </Link>
+                                    <HandleLinkClick link={link} />
                                 </li>
                             ))}
                         </ul>
