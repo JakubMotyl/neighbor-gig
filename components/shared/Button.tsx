@@ -4,7 +4,7 @@ import Link from "next/link";
 interface ButtonProps {
     children: ReactNode;
     href?: string;
-    onClick?: () => void;
+    onClick?: (e: any) => void;
     className?: string;
     ariaLabel?: string;
     variant?: "primary" | "outline" | "ghost";
@@ -32,7 +32,12 @@ export default function Button({
 
     if (href) {
         return (
-            <Link href={href} aria-label={ariaLabel} className={finalClasses}>
+            <Link
+                href={href}
+                onClick={onClick}
+                aria-label={ariaLabel}
+                className={finalClasses}
+            >
                 {children}
             </Link>
         );

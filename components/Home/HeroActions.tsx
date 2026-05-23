@@ -2,7 +2,7 @@
 import Button from "../shared/Button";
 
 export default function HeroActions() {
-    const scrollToHowItWorks = () => {
+    const scrollToHowItWorks = () => {        
         const element = document.getElementById("jak-to-dziala");
         if (element) {
             element.scrollIntoView({ behavior: "smooth" });

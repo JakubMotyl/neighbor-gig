@@ -4,7 +4,7 @@ import { FOOTER_LINKS } from "@/constants/footer-navigation";
 
 export default function Footer() {
     return (
-        <footer className="px-default pt-4 md:pt-6 pb-2 md:pb-3">
+        <footer className="px-default pt-8 md:pt-10 pb-4 md:pb-6 border-t border-gray-200">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 md:gap-8 mb-12">
                 {FOOTER_LINKS.map((group) => (
                     <div key={group.title} className="flex flex-col space-y-4">
