@@ -1,9 +1,9 @@
-import Link from "next/link";
 import Button from "../shared/Button";
 import Logo from "../shared/Logo";
 import MobileMenu from "./MobileMenu";
 import { theme } from "@/styles/theme";
 import { NAV_LINKS } from "@/constants/navigation";
+import HandleLinkClick from "./HandleLinkClick";
 
 export default function Navbar() {
     return (
@@ -13,14 +13,12 @@ export default function Navbar() {
                 <Logo />
                 {/* Show Links on MD+ Devices */}
                 <ul className="hidden md:flex items-center space-x-5">
-                    {NAV_LINKS.map((link, index) => (
-                        <li key={index}>
-                            <Link
-                                href={link.link}
+                    {NAV_LINKS.map((link) => (
+                        <li key={link.href}>
+                            <HandleLinkClick
+                                link={link}
                                 className={theme.interactions.navLink}
-                            >
-                                {link.name}
-                            </Link>
+                            />
                         </li>
                     ))}
                 </ul>

@@ -1,49 +1,43 @@
 "use client";
+
 import Link from "next/link";
-import type { FooterLink } from "@/constants/footer-navigation";
+import type { SiteLink } from "@/constants/navigation";
 import { usePathname, useRouter } from "next/navigation";
 
+const DEFAULT_LINK_CLASS =
+    "text-sm text-text-muted hover:text-primary transition-colors duration-200";
+
 interface HandleLinkClickProps {
-    link: FooterLink;
+    link: SiteLink;
+    className?: string;
 }
 
 // Intercepts anchor links to enable smooth scrolling and prevent URL hash pollution
-export default function HandleLinkClick({ link }: HandleLinkClickProps) {
+export default function HandleLinkClick({
+    link,
+    className = DEFAULT_LINK_CLASS,
+}: HandleLinkClickProps) {
     const pathname = usePathname();
     const router = useRouter();
 
-    const handleClick = (
-        e: React.MouseEvent<HTMLAnchorElement>,
-        href: string,
-    ) => {
-        // Dynamic handling for all homepage internal anchor links
-        if (href.startsWith("/#")) {
-            const id = href.replace("/#", "");
+    const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+        if (!link.href.startsWith("/#")) return;
 
-            // Supporting both dynamic sections seamlessly
-            if (id === "jak-to-dziala" || id === "faq") {
-                e.preventDefault(); // Stop native navigation
+        const id = link.href.replace("/#", "");
 
-                if (pathname === "/") {
-                    // Already on homepage -> execute smooth scroll immediately
-                    const element = document.getElementById(id);
-                    if (element) {
-                        element.scrollIntoView({ behavior: "smooth" });
-                    }
-                } else {
-                    // On another page -> push to homepage with clean query param
-                    router.push(`/?scroll=${id}`);
-                }
-            }
+        if (id !== "jak-to-dziala" && id !== "faq") return;
+
+        e.preventDefault();
+
+        if (pathname === "/") {
+            document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+        } else {
+            router.push(`/?scroll=${id}`);
         }
     };
 
     return (
-        <Link
-            href={link.href}
-            onClick={(e) => handleClick(e, link.href)}
-            className="text-sm text-text-muted hover:text-primary transition-colors duration-200"
-        >
+        <Link href={link.href} onClick={handleClick} className={className}>
             {link.name}
         </Link>
     );

@@ -1,11 +1,8 @@
-export interface FooterLink {
-    name: string;
-    href: string;
-}
+import type { SiteLink } from "./navigation";
 
 interface FooterGroup {
     title: string;
-    links: FooterLink[];
+    links: SiteLink[];
 }
 
 export const FOOTER_LINKS: FooterGroup[] = [

@@ -1,9 +1,10 @@
-interface NavLink {
-    link: string;
+export interface SiteLink {
     name: string;
+    href: string;
 }
 
-export const NAV_LINKS: NavLink[] = [
-    { link: "/zlecenia", name: "Oferty" },
-    { link: "/kontakt", name: "Kontakt" },
+export const NAV_LINKS: SiteLink[] = [
+    { name: "Oferty", href: "/zlecenia" },
+    { name: "Jak to działa", href: "/#jak-to-dziala" },
+    { name: "Kontakt", href: "/kontakt" },
 ];

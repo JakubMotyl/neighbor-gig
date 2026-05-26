@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import Link from "next/link";
 
 interface ButtonProps {
+    type?: "button" | "submit" | "reset";
     children: ReactNode;
     href?: string;
     onClick?: (e: any) => void;
@@ -17,6 +18,7 @@ export default function Button({
     className = "",
     ariaLabel,
     variant = "primary",
+    type = "button",
 }: ButtonProps) {
     const baseClasses = `inline-flex items-center justify-center rounded-md px-4 py-2 font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary cursor-pointer duration-300`;
 
@@ -48,6 +50,7 @@ export default function Button({
             onClick={onClick}
             aria-label={ariaLabel}
             className={finalClasses}
+            type={type}
         >
             {children}
         </button>

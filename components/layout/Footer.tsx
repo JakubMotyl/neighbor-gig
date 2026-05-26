@@ -13,7 +13,7 @@ export default function Footer() {
                         </p>
                         <ul className="flex flex-col space-y-3">
                             {group.links.map((link) => (
-                                <li key={link.name}>
+                                <li key={link.href}>
                                     <HandleLinkClick link={link} />
                                 </li>
                             ))}
