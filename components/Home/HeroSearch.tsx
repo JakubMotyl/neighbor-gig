@@ -31,7 +31,7 @@ export default function HomeSearch() {
     const handleSelectCategory = (category: (typeof GIG_CATEGORIES)[0]) => {
         setSearchQuery("");
         setIsOpen(false);
-        router.push(`/zlecenia?q=${category.slug}`);
+        router.push(`/zlecenia?category=${category.slug}`);
     };
 
     const handleSearch = (formData: FormData) => {
@@ -64,7 +64,7 @@ export default function HomeSearch() {
 
         if (matchedCategory) {
             setCategoryError(null);
-            router.push(`/zlecenia?q=${matchedCategory.slug}`);
+            router.push(`/zlecenia?category=${matchedCategory.slug}`);
         } else {
             showError(
                 "Błędna kategoria. Wybierz sugestię z listy lub „Inne zadania”.",
