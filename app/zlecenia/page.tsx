@@ -2,6 +2,7 @@ import ZleceniaSearch from "@/components/Zlecenia/ZleceniaSearch";
 import Navbar from "@/components/layout/Navbar";
 import { theme } from "@/styles/theme";
 import { MOCK_TASKS } from "@/constants/categories";
+import SortTabs from "@/components/Zlecenia/SortTabs";
 
 export default function Zlecenia() {
     return (
@@ -11,6 +12,7 @@ export default function Zlecenia() {
             </header>
             <main className={`${theme.layout.sectionSpacing} flex flex-col`}>
                 <ZleceniaSearch />
+                <SortTabs />
             </main>
         </>
     );
