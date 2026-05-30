@@ -2,8 +2,9 @@ import { Suspense } from "react";
 import ZleceniaSearch from "@/components/Zlecenia/ZleceniaSearch";
 import Navbar from "@/components/layout/Navbar";
 import { theme } from "@/styles/theme";
-import { MOCK_TASKS } from "@/constants/categories";
+import { MOCK_TASKS } from "@/constants/mocks";
 import SortTabs from "@/components/Zlecenia/SortTabs";
+import ZleceniaList from "@/components/Zlecenia/ZleceniaList";
 
 export default function Zlecenia() {
     return (
@@ -25,6 +26,13 @@ export default function Zlecenia() {
                     }
                 >
                     <SortTabs />
+                </Suspense>
+                <Suspense
+                    fallback={
+                        <div className="h-12 animate-pulse bg-gray-50 rounded-2xl max-w-5xl mx-auto" />
+                    }
+                >
+                    <ZleceniaList mock={MOCK_TASKS} />
                 </Suspense>
             </main>
         </>
