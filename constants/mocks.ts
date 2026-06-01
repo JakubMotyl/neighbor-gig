@@ -8,7 +8,7 @@ export interface GigTask {
     createdAt: Date;
     isBoosted: boolean;
     authorName: string;
-    authorAvatar: string;
+    authorAvatar: string | null;
     authorVerified: boolean;
     authorRating: number;
 }
@@ -25,7 +25,7 @@ export const MOCK_TASKS: GigTask[] = [
         createdAt: new Date("2026-05-26T15:30:00Z"),
         isBoosted: true, // Promowane przez Gig-Boost!
         authorName: "Mariusz W.",
-        authorAvatar: "https://i.pravatar.cc/150?img=11",
+        authorAvatar: null,
         authorVerified: true, // Zweryfikowany przez Stripe!
         authorRating: 4.9,
     },
@@ -40,7 +40,7 @@ export const MOCK_TASKS: GigTask[] = [
         createdAt: new Date("2026-05-26T14:15:00Z"),
         isBoosted: false,
         authorName: "Anna Kowalska",
-        authorAvatar: "https://i.pravatar.cc/150?img=26",
+        authorAvatar: null,
         authorVerified: true,
         authorRating: 5.0,
     },
@@ -55,7 +55,7 @@ export const MOCK_TASKS: GigTask[] = [
         createdAt: new Date("2026-05-25T09:00:00Z"),
         isBoosted: true,
         authorName: "Piotr S.",
-        authorAvatar: "https://i.pravatar.cc/150?img=12",
+        authorAvatar: null,
         authorVerified: false,
         authorRating: 4.5,
     },
@@ -70,7 +70,7 @@ export const MOCK_TASKS: GigTask[] = [
         createdAt: new Date("2026-05-25T18:20:00Z"),
         isBoosted: false,
         authorName: "Magda M.",
-        authorAvatar: "https://i.pravatar.cc/150?img=47",
+        authorAvatar: null,
         authorVerified: true,
         authorRating: 4.8,
     },
@@ -85,7 +85,7 @@ export const MOCK_TASKS: GigTask[] = [
         createdAt: new Date("2026-05-24T11:05:00Z"),
         isBoosted: false,
         authorName: "Janusz G.",
-        authorAvatar: "https://i.pravatar.cc/150?img=68",
+        authorAvatar: null,
         authorVerified: true,
         authorRating: 4.2,
     },
@@ -100,7 +100,7 @@ export const MOCK_TASKS: GigTask[] = [
         createdAt: new Date("2026-05-26T16:45:00Z"),
         isBoosted: true,
         authorName: "Helena Rucińska",
-        authorAvatar: "https://i.pravatar.cc/150?img=5",
+        authorAvatar: null,
         authorVerified: false,
         authorRating: 4.7,
     },
@@ -115,7 +115,7 @@ export const MOCK_TASKS: GigTask[] = [
         createdAt: new Date("2026-05-26T17:00:00Z"),
         isBoosted: false,
         authorName: "Krzysztof Ł.",
-        authorAvatar: "https://i.pravatar.cc/150?img=33",
+        authorAvatar: null,
         authorVerified: true,
         authorRating: 4.6,
     },
@@ -130,7 +130,7 @@ export const MOCK_TASKS: GigTask[] = [
         createdAt: new Date("2026-05-23T14:00:00Z"),
         isBoosted: false,
         authorName: "Karolina Nowak",
-        authorAvatar: "https://i.pravatar.cc/150?img=43",
+        authorAvatar: null,
         authorVerified: true,
         authorRating: 4.9,
     },
@@ -145,7 +145,7 @@ export const MOCK_TASKS: GigTask[] = [
         createdAt: new Date("2026-05-24T08:30:00Z"),
         isBoosted: false,
         authorName: "Tomasz B.",
-        authorAvatar: "https://i.pravatar.cc/150?img=59",
+        authorAvatar: null,
         authorVerified: false,
         authorRating: 4.4,
     },
@@ -160,7 +160,7 @@ export const MOCK_TASKS: GigTask[] = [
         createdAt: new Date("2026-05-26T12:00:00Z"),
         isBoosted: false,
         authorName: "Wojciech S.",
-        authorAvatar: "https://i.pravatar.cc/150?img=91",
+        authorAvatar: null,
         authorVerified: true,
         authorRating: 4.1,
     },

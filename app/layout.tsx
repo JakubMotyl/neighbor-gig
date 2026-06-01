@@ -22,7 +22,11 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="pl" className={`${jakarta.variable} h-full antialiased`}>
+        <html
+            lang="pl"
+            className={`${jakarta.variable} h-full antialiased`}
+            data-scroll-behavior="smooth"
+        >
             <body className="min-h-dvh flex flex-col">
                 {children}
                 <Footer />

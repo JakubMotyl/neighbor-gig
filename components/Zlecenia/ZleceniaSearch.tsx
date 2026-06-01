@@ -57,7 +57,7 @@ export default function ZleceniaSearch() {
         : "Wszystkie kategorie";
 
     return (
-        <section className="px-default">
+        <section>
             <div className="w-full max-w-5xl mx-auto">
                 <div className="rounded-3xl bg-surface shadow-sm border border-gray-100">
                     <form
@@ -149,7 +149,7 @@ export default function ZleceniaSearch() {
                             <Button
                                 type="submit"
                                 variant="primary"
-                                className="hover:translate-y-0!"
+                                className="hover:translate-y-0! w-full"
                             >
                                 Szukaj
                             </Button>

@@ -47,8 +47,8 @@ export default function SortTabs() {
     };
 
     return (
-        <section className="w-full max-w-5xl mx-auto px-default">
-            <div className="flex items-center gap-3 overflow-x-auto pb-2 md:pb-0 scrollbar-none">
+        <section className="max-w-5xl mx-auto">
+            <div className="w-full flex flex-wrap items-center gap-3 pb-2 md:pb-0">
                 {SORT_OPTIONS.map((tab) => {
                     const Icon = tab.icon;
                     const isActive = currentSort === tab.id;
