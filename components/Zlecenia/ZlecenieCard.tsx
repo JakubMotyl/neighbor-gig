@@ -1,20 +1,29 @@
 "use client";
 
-import { GigTask } from "@/constants/mocks";
 import { ShieldCheck, MapPin, Calendar, Star } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { slugify } from "@/lib/utils";
+import { Task, ExecutionTime } from "@/lib/generated/prisma/client";
 
 interface ZlecenieCardProps {
-    task: GigTask;
+    task: Task;
 }
+
+export const EXECUTION_TIME_LABELS: Record<ExecutionTime, string> = {
+    ASAP: "Od zaraz",
+    WITHIN_FEW_DAYS: "W ciągu 2-3 dni",
+    THIS_WEEKEND: "W ten weekend",
+    FLEXIBLE: "Termin do uzgodnienia",
+};
 
 export default function ZlecenieCard({ task }: ZlecenieCardProps) {
     const router = useRouter();
 
     const handleCardClick = () => {
-        router.push(`/zlecenia/${task.id}`);
+        const taskSlug = slugify(task.title);
+        router.push(`/zlecenia/${taskSlug}-${task.id}`);
     };
     return (
         <article
@@ -30,7 +39,7 @@ export default function ZlecenieCard({ task }: ZlecenieCardProps) {
             }}
         >
             <div>
-                <div className="flex items-center justify-between gap-3 mb-3 min-h-[26px]">
+                <div className="flex items-center justify-between gap-3 mb-3 min-h-6.5">
                     <div className="flex items-center gap-2">
                         {task.isBoosted && (
                             <span className="text-[10px] uppercase tracking-wider font-extrabold bg-amber-500/10 text-amber-600 border border-amber-500/20 px-2.5 py-1 rounded-xl">
@@ -68,20 +77,34 @@ export default function ZlecenieCard({ task }: ZlecenieCardProps) {
                     </div>
                     <div className="flex items-center gap-1">
                         <Calendar className="w-3.5 h-3.5" />
-                        <span>Zlecę od zaraz</span>
+                        <span>
+                            {new Date(task.createdAt).toLocaleDateString(
+                                "pl-PL",
+                                {
+                                    day: "numeric",
+                                    month: "short",
+                                },
+                            )}
+                        </span>
                     </div>
                 </div>
             </div>
 
             <div className="border-t border-gray-100 pt-4 mt-auto flex items-center justify-between gap-3">
                 <div className="flex items-center gap-2.5">
-                    <Image
-                        src={task.authorAvatar}
-                        alt={task.authorName}
-                        className="rounded-full object-cover border border-gray-100"
-                        width={32}
-                        height={32}
-                    />
+                    {task.authorAvatar ? (
+                        <Image
+                            src={task.authorAvatar}
+                            alt={task.authorName}
+                            className="rounded-full object-cover border border-gray-100"
+                            width={32}
+                            height={32}
+                        />
+                    ) : (
+                        <div className="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center font-bold text-slate-600">
+                            {task.authorName.charAt(0)}
+                        </div>
+                    )}
                     <div className="flex flex-col">
                         <span className="font-bold text-xs text-text-main leading-none mb-1">
                             {task.authorName}
@@ -89,10 +112,18 @@ export default function ZlecenieCard({ task }: ZlecenieCardProps) {
 
                         <div className="flex items-center gap-1 text-[11px] font-bold text-text-main leading-none">
                             <Star className="w-3 h-3 text-amber-500 fill-amber-500 shrink-0" />
-                            <span>{task.authorRating.toFixed(1)}</span>
-                            <span className="text-text-muted font-medium text-[10px]">
-                                (1.2K)
-                            </span>
+                            {task.authorRatingCount > 0 ? (
+                                <>
+                                    <span>{task.authorRating.toFixed(1)}</span>
+                                    <span className="text-text-muted font-medium text-[10px]">
+                                        ({task.authorRatingCount})
+                                    </span>
+                                </>
+                            ) : (
+                                <span className="text-text-muted font-medium text-[10px]">
+                                    Brak ocen
+                                </span>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -102,7 +133,7 @@ export default function ZlecenieCard({ task }: ZlecenieCardProps) {
                         {task.price} PLN
                     </span>
                     <span className="text-[10px] font-medium text-text-muted block leading-none">
-                        Wykonanie w 2 dni
+                        {EXECUTION_TIME_LABELS[task.executionTime]}
                     </span>
                 </div>
             </div>

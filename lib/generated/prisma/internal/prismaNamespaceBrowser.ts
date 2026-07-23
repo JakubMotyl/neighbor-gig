@@ -83,7 +83,8 @@ export const TaskScalarFieldEnum = {
   authorAvatar: 'authorAvatar',
   authorVerified: 'authorVerified',
   authorRating: 'authorRating',
-  authorRatingCount: 'authorRatingCount'
+  authorRatingCount: 'authorRatingCount',
+  executionTime: 'executionTime'
 } as const
 
 export type TaskScalarFieldEnum = (typeof TaskScalarFieldEnum)[keyof typeof TaskScalarFieldEnum]

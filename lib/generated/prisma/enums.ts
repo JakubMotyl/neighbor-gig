@@ -9,7 +9,11 @@
 * 🟢 You can import this file directly.
 */
 
+export const ExecutionTime = {
+  ASAP: 'ASAP',
+  WITHIN_FEW_DAYS: 'WITHIN_FEW_DAYS',
+  THIS_WEEKEND: 'THIS_WEEKEND',
+  FLEXIBLE: 'FLEXIBLE'
+} as const
 
-
-// This file is empty because there are no enums in the schema.
-export {}
+export type ExecutionTime = (typeof ExecutionTime)[keyof typeof ExecutionTime]

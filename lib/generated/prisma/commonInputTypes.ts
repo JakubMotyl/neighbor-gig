@@ -82,6 +82,13 @@ export type FloatFilter<$PrismaModel = never> = {
   not?: Prisma.NestedFloatFilter<$PrismaModel> | number
 }
 
+export type EnumExecutionTimeFilter<$PrismaModel = never> = {
+  equals?: $Enums.ExecutionTime | Prisma.EnumExecutionTimeFieldRefInput<$PrismaModel>
+  in?: $Enums.ExecutionTime[] | Prisma.ListEnumExecutionTimeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ExecutionTime[] | Prisma.ListEnumExecutionTimeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumExecutionTimeFilter<$PrismaModel> | $Enums.ExecutionTime
+}
+
 export type SortOrderInput = {
   sort: Prisma.SortOrder
   nulls?: Prisma.NullsOrder
@@ -177,6 +184,16 @@ export type FloatWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedFloatFilter<$PrismaModel>
 }
 
+export type EnumExecutionTimeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ExecutionTime | Prisma.EnumExecutionTimeFieldRefInput<$PrismaModel>
+  in?: $Enums.ExecutionTime[] | Prisma.ListEnumExecutionTimeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ExecutionTime[] | Prisma.ListEnumExecutionTimeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumExecutionTimeWithAggregatesFilter<$PrismaModel> | $Enums.ExecutionTime
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumExecutionTimeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumExecutionTimeFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -241,6 +258,13 @@ export type NestedFloatFilter<$PrismaModel = never> = {
   gt?: number | Prisma.FloatFieldRefInput<$PrismaModel>
   gte?: number | Prisma.FloatFieldRefInput<$PrismaModel>
   not?: Prisma.NestedFloatFilter<$PrismaModel> | number
+}
+
+export type NestedEnumExecutionTimeFilter<$PrismaModel = never> = {
+  equals?: $Enums.ExecutionTime | Prisma.EnumExecutionTimeFieldRefInput<$PrismaModel>
+  in?: $Enums.ExecutionTime[] | Prisma.ListEnumExecutionTimeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ExecutionTime[] | Prisma.ListEnumExecutionTimeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumExecutionTimeFilter<$PrismaModel> | $Enums.ExecutionTime
 }
 
 export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
@@ -340,6 +364,16 @@ export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
   _sum?: Prisma.NestedFloatFilter<$PrismaModel>
   _min?: Prisma.NestedFloatFilter<$PrismaModel>
   _max?: Prisma.NestedFloatFilter<$PrismaModel>
+}
+
+export type NestedEnumExecutionTimeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ExecutionTime | Prisma.EnumExecutionTimeFieldRefInput<$PrismaModel>
+  in?: $Enums.ExecutionTime[] | Prisma.ListEnumExecutionTimeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ExecutionTime[] | Prisma.ListEnumExecutionTimeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumExecutionTimeWithAggregatesFilter<$PrismaModel> | $Enums.ExecutionTime
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumExecutionTimeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumExecutionTimeFilter<$PrismaModel>
 }
 
 

@@ -12,6 +12,13 @@ datasource db {
   provider = "postgresql"
 }
 
+enum ExecutionTime {
+  ASAP                   // Od zaraz / Dzisiaj
+  WITHIN_FEW_DAYS        // W ciągu kilku dni
+  THIS_WEEKEND           // W ten weekend
+  FLEXIBLE               // Elastyczny / Do uzgodnienia
+}
+
 model Task {
   id              String   @id @default(uuid())
   title           String
@@ -26,4 +33,5 @@ model Task {
   authorVerified  Boolean  @default(false)
   authorRating    Float @default(0)
   authorRatingCount Int @default(0)
+  executionTime ExecutionTime @default(FLEXIBLE)
 }

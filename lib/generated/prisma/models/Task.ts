@@ -52,6 +52,7 @@ export type TaskMinAggregateOutputType = {
   authorVerified: boolean | null
   authorRating: number | null
   authorRatingCount: number | null
+  executionTime: $Enums.ExecutionTime | null
 }
 
 export type TaskMaxAggregateOutputType = {
@@ -68,6 +69,7 @@ export type TaskMaxAggregateOutputType = {
   authorVerified: boolean | null
   authorRating: number | null
   authorRatingCount: number | null
+  executionTime: $Enums.ExecutionTime | null
 }
 
 export type TaskCountAggregateOutputType = {
@@ -84,6 +86,7 @@ export type TaskCountAggregateOutputType = {
   authorVerified: number
   authorRating: number
   authorRatingCount: number
+  executionTime: number
   _all: number
 }
 
@@ -114,6 +117,7 @@ export type TaskMinAggregateInputType = {
   authorVerified?: true
   authorRating?: true
   authorRatingCount?: true
+  executionTime?: true
 }
 
 export type TaskMaxAggregateInputType = {
@@ -130,6 +134,7 @@ export type TaskMaxAggregateInputType = {
   authorVerified?: true
   authorRating?: true
   authorRatingCount?: true
+  executionTime?: true
 }
 
 export type TaskCountAggregateInputType = {
@@ -146,6 +151,7 @@ export type TaskCountAggregateInputType = {
   authorVerified?: true
   authorRating?: true
   authorRatingCount?: true
+  executionTime?: true
   _all?: true
 }
 
@@ -249,6 +255,7 @@ export type TaskGroupByOutputType = {
   authorVerified: boolean
   authorRating: number
   authorRatingCount: number
+  executionTime: $Enums.ExecutionTime
   _count: TaskCountAggregateOutputType | null
   _avg: TaskAvgAggregateOutputType | null
   _sum: TaskSumAggregateOutputType | null
@@ -288,6 +295,7 @@ export type TaskWhereInput = {
   authorVerified?: Prisma.BoolFilter<"Task"> | boolean
   authorRating?: Prisma.FloatFilter<"Task"> | number
   authorRatingCount?: Prisma.IntFilter<"Task"> | number
+  executionTime?: Prisma.EnumExecutionTimeFilter<"Task"> | $Enums.ExecutionTime
 }
 
 export type TaskOrderByWithRelationInput = {
@@ -304,6 +312,7 @@ export type TaskOrderByWithRelationInput = {
   authorVerified?: Prisma.SortOrder
   authorRating?: Prisma.SortOrder
   authorRatingCount?: Prisma.SortOrder
+  executionTime?: Prisma.SortOrder
 }
 
 export type TaskWhereUniqueInput = Prisma.AtLeast<{
@@ -323,6 +332,7 @@ export type TaskWhereUniqueInput = Prisma.AtLeast<{
   authorVerified?: Prisma.BoolFilter<"Task"> | boolean
   authorRating?: Prisma.FloatFilter<"Task"> | number
   authorRatingCount?: Prisma.IntFilter<"Task"> | number
+  executionTime?: Prisma.EnumExecutionTimeFilter<"Task"> | $Enums.ExecutionTime
 }, "id">
 
 export type TaskOrderByWithAggregationInput = {
@@ -339,6 +349,7 @@ export type TaskOrderByWithAggregationInput = {
   authorVerified?: Prisma.SortOrder
   authorRating?: Prisma.SortOrder
   authorRatingCount?: Prisma.SortOrder
+  executionTime?: Prisma.SortOrder
   _count?: Prisma.TaskCountOrderByAggregateInput
   _avg?: Prisma.TaskAvgOrderByAggregateInput
   _max?: Prisma.TaskMaxOrderByAggregateInput
@@ -363,6 +374,7 @@ export type TaskScalarWhereWithAggregatesInput = {
   authorVerified?: Prisma.BoolWithAggregatesFilter<"Task"> | boolean
   authorRating?: Prisma.FloatWithAggregatesFilter<"Task"> | number
   authorRatingCount?: Prisma.IntWithAggregatesFilter<"Task"> | number
+  executionTime?: Prisma.EnumExecutionTimeWithAggregatesFilter<"Task"> | $Enums.ExecutionTime
 }
 
 export type TaskCreateInput = {
@@ -379,6 +391,7 @@ export type TaskCreateInput = {
   authorVerified?: boolean
   authorRating?: number
   authorRatingCount?: number
+  executionTime?: $Enums.ExecutionTime
 }
 
 export type TaskUncheckedCreateInput = {
@@ -395,6 +408,7 @@ export type TaskUncheckedCreateInput = {
   authorVerified?: boolean
   authorRating?: number
   authorRatingCount?: number
+  executionTime?: $Enums.ExecutionTime
 }
 
 export type TaskUpdateInput = {
@@ -411,6 +425,7 @@ export type TaskUpdateInput = {
   authorVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   authorRating?: Prisma.FloatFieldUpdateOperationsInput | number
   authorRatingCount?: Prisma.IntFieldUpdateOperationsInput | number
+  executionTime?: Prisma.EnumExecutionTimeFieldUpdateOperationsInput | $Enums.ExecutionTime
 }
 
 export type TaskUncheckedUpdateInput = {
@@ -427,6 +442,7 @@ export type TaskUncheckedUpdateInput = {
   authorVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   authorRating?: Prisma.FloatFieldUpdateOperationsInput | number
   authorRatingCount?: Prisma.IntFieldUpdateOperationsInput | number
+  executionTime?: Prisma.EnumExecutionTimeFieldUpdateOperationsInput | $Enums.ExecutionTime
 }
 
 export type TaskCreateManyInput = {
@@ -443,6 +459,7 @@ export type TaskCreateManyInput = {
   authorVerified?: boolean
   authorRating?: number
   authorRatingCount?: number
+  executionTime?: $Enums.ExecutionTime
 }
 
 export type TaskUpdateManyMutationInput = {
@@ -459,6 +476,7 @@ export type TaskUpdateManyMutationInput = {
   authorVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   authorRating?: Prisma.FloatFieldUpdateOperationsInput | number
   authorRatingCount?: Prisma.IntFieldUpdateOperationsInput | number
+  executionTime?: Prisma.EnumExecutionTimeFieldUpdateOperationsInput | $Enums.ExecutionTime
 }
 
 export type TaskUncheckedUpdateManyInput = {
@@ -475,6 +493,7 @@ export type TaskUncheckedUpdateManyInput = {
   authorVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   authorRating?: Prisma.FloatFieldUpdateOperationsInput | number
   authorRatingCount?: Prisma.IntFieldUpdateOperationsInput | number
+  executionTime?: Prisma.EnumExecutionTimeFieldUpdateOperationsInput | $Enums.ExecutionTime
 }
 
 export type TaskCountOrderByAggregateInput = {
@@ -491,6 +510,7 @@ export type TaskCountOrderByAggregateInput = {
   authorVerified?: Prisma.SortOrder
   authorRating?: Prisma.SortOrder
   authorRatingCount?: Prisma.SortOrder
+  executionTime?: Prisma.SortOrder
 }
 
 export type TaskAvgOrderByAggregateInput = {
@@ -513,6 +533,7 @@ export type TaskMaxOrderByAggregateInput = {
   authorVerified?: Prisma.SortOrder
   authorRating?: Prisma.SortOrder
   authorRatingCount?: Prisma.SortOrder
+  executionTime?: Prisma.SortOrder
 }
 
 export type TaskMinOrderByAggregateInput = {
@@ -529,6 +550,7 @@ export type TaskMinOrderByAggregateInput = {
   authorVerified?: Prisma.SortOrder
   authorRating?: Prisma.SortOrder
   authorRatingCount?: Prisma.SortOrder
+  executionTime?: Prisma.SortOrder
 }
 
 export type TaskSumOrderByAggregateInput = {
@@ -569,6 +591,10 @@ export type FloatFieldUpdateOperationsInput = {
   divide?: number
 }
 
+export type EnumExecutionTimeFieldUpdateOperationsInput = {
+  set?: $Enums.ExecutionTime
+}
+
 
 
 export type TaskSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -585,6 +611,7 @@ export type TaskSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   authorVerified?: boolean
   authorRating?: boolean
   authorRatingCount?: boolean
+  executionTime?: boolean
 }, ExtArgs["result"]["task"]>
 
 export type TaskSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -601,6 +628,7 @@ export type TaskSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   authorVerified?: boolean
   authorRating?: boolean
   authorRatingCount?: boolean
+  executionTime?: boolean
 }, ExtArgs["result"]["task"]>
 
 export type TaskSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -617,6 +645,7 @@ export type TaskSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   authorVerified?: boolean
   authorRating?: boolean
   authorRatingCount?: boolean
+  executionTime?: boolean
 }, ExtArgs["result"]["task"]>
 
 export type TaskSelectScalar = {
@@ -633,9 +662,10 @@ export type TaskSelectScalar = {
   authorVerified?: boolean
   authorRating?: boolean
   authorRatingCount?: boolean
+  executionTime?: boolean
 }
 
-export type TaskOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "categorySlug" | "location" | "price" | "createdAt" | "isBoosted" | "authorName" | "authorAvatar" | "authorVerified" | "authorRating" | "authorRatingCount", ExtArgs["result"]["task"]>
+export type TaskOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "categorySlug" | "location" | "price" | "createdAt" | "isBoosted" | "authorName" | "authorAvatar" | "authorVerified" | "authorRating" | "authorRatingCount" | "executionTime", ExtArgs["result"]["task"]>
 
 export type $TaskPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Task"
@@ -654,6 +684,7 @@ export type $TaskPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     authorVerified: boolean
     authorRating: number
     authorRatingCount: number
+    executionTime: $Enums.ExecutionTime
   }, ExtArgs["result"]["task"]>
   composites: {}
 }
@@ -1090,6 +1121,7 @@ export interface TaskFieldRefs {
   readonly authorVerified: Prisma.FieldRef<"Task", 'Boolean'>
   readonly authorRating: Prisma.FieldRef<"Task", 'Float'>
   readonly authorRatingCount: Prisma.FieldRef<"Task", 'Int'>
+  readonly executionTime: Prisma.FieldRef<"Task", 'ExecutionTime'>
 }
     
 

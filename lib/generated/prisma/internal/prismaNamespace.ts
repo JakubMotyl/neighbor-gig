@@ -530,7 +530,8 @@ export const TaskScalarFieldEnum = {
   authorAvatar: 'authorAvatar',
   authorVerified: 'authorVerified',
   authorRating: 'authorRating',
-  authorRatingCount: 'authorRatingCount'
+  authorRatingCount: 'authorRatingCount',
+  executionTime: 'executionTime'
 } as const
 
 export type TaskScalarFieldEnum = (typeof TaskScalarFieldEnum)[keyof typeof TaskScalarFieldEnum]
@@ -626,6 +627,20 @@ export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, '
  * Reference to a field of type 'Float[]'
  */
 export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ExecutionTime'
+ */
+export type EnumExecutionTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ExecutionTime'>
+    
+
+
+/**
+ * Reference to a field of type 'ExecutionTime[]'
+ */
+export type ListEnumExecutionTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ExecutionTime[]'>
     
 
 /**

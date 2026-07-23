@@ -1,37 +1,27 @@
-export interface GigTask {
-    id: string;
-    title: string;
-    description: string;
-    categorySlug: string;
-    location: string;
-    price: number;
-    createdAt: Date;
-    isBoosted: boolean;
-    authorName: string;
-    authorAvatar: string | null;
-    authorVerified: boolean;
-    authorRating: number;
-}
+import { Task, ExecutionTime } from "@/lib/generated/prisma/client";
 
-export const MOCK_TASKS: GigTask[] = [
+export const MOCK_TASKS: Task[] = [
     {
         id: "task-1",
         title: "Składanie szafy PAX (3 moduły) z lustrem",
         description:
-            "Szukam sprawnego fachowca do złożenia szafy PAX z IKEA. Trzy moduły, w tym jedne drzwi lustrzane. Wszystkie paczki są już w mieszkaniu na 2. piętrze (jest winda). Narzędzia własne wymagane. Zależy mi na precyzji, żeby drzwi przsuwne chodziły idealnie gładko.",
+            "Szukam sprawnego fachowca do złożenia szafy PAX z IKEA. Trzy moduły, w tym jedne drzwi lustrzane. Wszystkie paczki są już w mieszkaniu na 2. piętrze (jest winda). Narzędzia własne wymagane. Zależy mi na precyzji, żeby drzwi przesuwne chodziły idealnie gładko.",
         categorySlug: "montaz-i-naprawy",
         location: "Warszawa, Mokotów",
         price: 350,
         createdAt: new Date("2026-05-26T15:30:00Z"),
-        isBoosted: true, // Promowane przez Gig-Boost!
+        isBoosted: true,
+        executionTime: ExecutionTime.WITHIN_FEW_DAYS,
         authorName: "Mariusz W.",
-        authorAvatar: null,
-        authorVerified: true, // Zweryfikowany przez Stripe!
+        authorAvatar:
+            "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=150",
+        authorVerified: true,
         authorRating: 4.9,
+        authorRatingCount: 24,
     },
     {
         id: "task-2",
-        title: "Dokładne sprzątanie mieszkania 55m² po remoncie",
+        title: "Dokładne sprzątanie mieszkania 55m² po remontzie",
         description:
             "Potrzebuję pomocy w doprowadzeniu mieszkania do porządku po malowaniu i cyklinowaniu podłóg. Do umycia są 4 okna, kurze w szafkach kuchennych oraz dokładne odkurzenie i zmycie pyłu budowlanego z podłóg i listew. Środki czystości zapewniam na miejscu.",
         categorySlug: "sprzatanie",
@@ -39,10 +29,13 @@ export const MOCK_TASKS: GigTask[] = [
         price: 280,
         createdAt: new Date("2026-05-26T14:15:00Z"),
         isBoosted: false,
+        executionTime: ExecutionTime.THIS_WEEKEND,
         authorName: "Anna Kowalska",
-        authorAvatar: null,
+        authorAvatar:
+            "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150",
         authorVerified: true,
         authorRating: 5.0,
+        authorRatingCount: 12,
     },
     {
         id: "task-3",
@@ -54,10 +47,12 @@ export const MOCK_TASKS: GigTask[] = [
         price: 200,
         createdAt: new Date("2026-05-25T09:00:00Z"),
         isBoosted: true,
+        executionTime: ExecutionTime.ASAP,
         authorName: "Piotr S.",
-        authorAvatar: null,
+        authorAvatar: null, // Przetestuje nasz fallback!
         authorVerified: false,
         authorRating: 4.5,
+        authorRatingCount: 5,
     },
     {
         id: "task-4",
@@ -69,10 +64,13 @@ export const MOCK_TASKS: GigTask[] = [
         price: 150,
         createdAt: new Date("2026-05-25T18:20:00Z"),
         isBoosted: false,
+        executionTime: ExecutionTime.THIS_WEEKEND,
         authorName: "Magda M.",
-        authorAvatar: null,
+        authorAvatar:
+            "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=150",
         authorVerified: true,
         authorRating: 4.8,
+        authorRatingCount: 18,
     },
     {
         id: "task-5",
@@ -84,10 +82,12 @@ export const MOCK_TASKS: GigTask[] = [
         price: 250,
         createdAt: new Date("2026-05-24T11:05:00Z"),
         isBoosted: false,
+        executionTime: ExecutionTime.FLEXIBLE,
         authorName: "Janusz G.",
         authorAvatar: null,
         authorVerified: true,
         authorRating: 4.2,
+        authorRatingCount: 3,
     },
     {
         id: "task-6",
@@ -99,10 +99,12 @@ export const MOCK_TASKS: GigTask[] = [
         price: 90,
         createdAt: new Date("2026-05-26T16:45:00Z"),
         isBoosted: true,
+        executionTime: ExecutionTime.ASAP,
         authorName: "Helena Rucińska",
         authorAvatar: null,
         authorVerified: false,
         authorRating: 4.7,
+        authorRatingCount: 9,
     },
     {
         id: "task-7",
@@ -114,10 +116,13 @@ export const MOCK_TASKS: GigTask[] = [
         price: 180,
         createdAt: new Date("2026-05-26T17:00:00Z"),
         isBoosted: false,
+        executionTime: ExecutionTime.WITHIN_FEW_DAYS,
         authorName: "Krzysztof Ł.",
-        authorAvatar: null,
+        authorAvatar:
+            "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150",
         authorVerified: true,
         authorRating: 4.6,
+        authorRatingCount: 15,
     },
     {
         id: "task-8",
@@ -129,10 +134,12 @@ export const MOCK_TASKS: GigTask[] = [
         price: 120,
         createdAt: new Date("2026-05-23T14:00:00Z"),
         isBoosted: false,
+        executionTime: ExecutionTime.FLEXIBLE,
         authorName: "Karolina Nowak",
         authorAvatar: null,
         authorVerified: true,
         authorRating: 4.9,
+        authorRatingCount: 42,
     },
     {
         id: "task-9",
@@ -144,24 +151,29 @@ export const MOCK_TASKS: GigTask[] = [
         price: 220,
         createdAt: new Date("2026-05-24T08:30:00Z"),
         isBoosted: false,
+        executionTime: ExecutionTime.WITHIN_FEW_DAYS,
         authorName: "Tomasz B.",
-        authorAvatar: null,
+        authorAvatar:
+            "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=150",
         authorVerified: false,
         authorRating: 4.4,
+        authorRatingCount: 7,
     },
     {
         id: "task-10",
         title: "Wniesienie starej kanapy do kontenera gabarytowego",
         description:
             "Potrzebuję silnego sąsiada do zniesienia starej, zużytej kanapy dwuosobowej z 4. piętra (brak windy) na dół pod blok, gdzie stoi podstawiony kontener na odpady wielkogabarytowe. Sam nie dam rady tego udźwignąć. Praca na maksymalnie 15-20 minut.",
-        categorySlug: "inne", // Kategoria "Inne zadania"
+        categorySlug: "inne",
         location: "Warszawa, Żoliborz",
         price: 70,
         createdAt: new Date("2026-05-26T12:00:00Z"),
         isBoosted: false,
+        executionTime: ExecutionTime.ASAP,
         authorName: "Wojciech S.",
         authorAvatar: null,
         authorVerified: true,
         authorRating: 4.1,
+        authorRatingCount: 2,
     },
 ];
