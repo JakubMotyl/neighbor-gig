@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "Task" ADD COLUMN     "authorRatingCount" INTEGER NOT NULL DEFAULT 0,
+ALTER COLUMN "authorAvatar" DROP NOT NULL,
+ALTER COLUMN "authorRating" SET DEFAULT 0;
