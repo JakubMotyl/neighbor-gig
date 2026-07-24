@@ -13,10 +13,10 @@ datasource db {
 }
 
 enum ExecutionTime {
-  ASAP                   // Od zaraz / Dzisiaj
-  WITHIN_FEW_DAYS        // W ciągu kilku dni
-  THIS_WEEKEND           // W ten weekend
-  FLEXIBLE               // Elastyczny / Do uzgodnienia
+  ASAP                   
+  WITHIN_FEW_DAYS        
+  THIS_WEEKEND           
+  FLEXIBLE               
 }
 
 model Task {

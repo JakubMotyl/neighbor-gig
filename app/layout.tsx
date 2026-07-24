@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/layout/Footer";
+import QueryProvider from "@/providers/QueryProvider";
 
 const jakarta = Plus_Jakarta_Sans({
     subsets: ["latin", "latin-ext"],
@@ -28,8 +29,10 @@ export default function RootLayout({
             data-scroll-behavior="smooth"
         >
             <body className="min-h-dvh flex flex-col">
-                {children}
-                <Footer />
+                <QueryProvider>
+                    {children}
+                    <Footer />
+                </QueryProvider>
             </body>
         </html>
     );
