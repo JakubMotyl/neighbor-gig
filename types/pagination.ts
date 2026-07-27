@@ -4,4 +4,5 @@ export interface TasksPaginatedResponse {
     tasks: Task[];
     nextSkip: number | null;
     hasMore: boolean;
+    totalTasks: number;
 }

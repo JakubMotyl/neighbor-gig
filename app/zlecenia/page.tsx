@@ -4,54 +4,8 @@ import Navbar from "@/components/layout/Navbar";
 import { theme } from "@/styles/theme";
 import SortTabs from "@/components/Zlecenia/SortTabs";
 import ZleceniaList from "@/components/Zlecenia/ZleceniaList";
-import { prisma } from "@/lib/prisma";
-import { Prisma } from "@/lib/generated/prisma/client";
 
-export default async function Zlecenia({
-    searchParams,
-}: {
-    searchParams: Promise<{
-        sort?: string;
-        keyword?: string;
-        category?: string;
-    }>;
-}) {
-    const resolvedParams = await searchParams;
-    const sort = resolvedParams.sort;
-    const keyword = resolvedParams.keyword;
-    const category = resolvedParams.category;
-
-    let whereConditions: Prisma.TaskWhereInput = {};
-
-    if (keyword) {
-        whereConditions.title = {
-            contains: keyword,
-            mode: "insensitive",
-        };
-    }
-
-    if (category) {
-        whereConditions.categorySlug = category;
-    }
-
-    if (sort === "verified") {
-        whereConditions.authorVerified = true;
-    }
-
-    let orderByConditions: Prisma.TaskOrderByWithRelationInput[] = [
-        { isBoosted: "desc" },
-        { authorRating: "desc" },
-    ];
-
-    if (sort === "rating") {
-        orderByConditions = [{ isBoosted: "desc" }, { authorRating: "desc" }];
-    }
-
-    const tasks = await prisma.task.findMany({
-        where: whereConditions,
-        orderBy: orderByConditions,
-    });
-
+export default function Zlecenia() {
     return (
         <>
             <header>
@@ -77,7 +31,7 @@ export default async function Zlecenia({
                         <div className="h-12 animate-pulse bg-gray-50 rounded-2xl max-w-5xl mx-auto" />
                     }
                 >
-                    <ZleceniaList tasks={tasks} />
+                    <ZleceniaList />
                 </Suspense>
             </main>
         </>
