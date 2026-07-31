@@ -4,8 +4,9 @@ import { useState } from "react";
 import { NAV_LINKS } from "@/constants/navigation";
 import { theme } from "@/styles/theme";
 import HandleLinkClick from "./HandleLinkClick";
+import { SignOut } from "../auth/SignOut";
 
-export default function MobileMenu() {
+export default function MobileMenu({ session }: { session: any }) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const closeMenu = () => setIsMenuOpen(false);
@@ -50,21 +51,37 @@ export default function MobileMenu() {
                             </li>
                         ))}
                     </ul>
+
                     <div className="mt-6 flex flex-col space-y-3">
-                        <Button
-                            href="/logowanie"
-                            className="w-full"
-                            variant="outline"
-                        >
-                            Logowanie
-                        </Button>
-                        <Button
-                            href="/rejestracja"
-                            className="w-full"
-                            variant="primary"
-                        >
-                            Dołącz
-                        </Button>
+                        {session?.user ? (
+                            <>
+                                <div className="text-center text-sm font-medium text-slate-600 pb-1">
+                                    {session.user.name || session.user.email}
+                                </div>
+                                <div onClick={closeMenu}>
+                                    <SignOut />
+                                </div>
+                            </>
+                        ) : (
+                            <>
+                                <Button
+                                    href="/logowanie"
+                                    className="w-full"
+                                    variant="outline"
+                                    onClick={closeMenu}
+                                >
+                                    Logowanie
+                                </Button>
+                                <Button
+                                    href="/rejestracja"
+                                    className="w-full"
+                                    variant="primary"
+                                    onClick={closeMenu}
+                                >
+                                    Dołącz
+                                </Button>
+                            </>
+                        )}
                     </div>
                 </div>
             )}
