@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { GoogleSignIn } from "@/components/auth/GoogleSignIn";
-
 import { auth } from "@/lib/auth";
+import { AuthError } from "next-auth";
 import { redirect } from "next/navigation";
+import { signIn } from "@/lib/auth";
 
 export default async function LoginPage() {
     const session = await auth();
@@ -31,7 +32,22 @@ export default async function LoginPage() {
                     </div>
                 </div>
 
-                <form className="space-y-4">
+                <form
+                    className="space-y-4"
+                    action={async (formData: FormData) => {
+                        "use server";
+                        try {
+                            await signIn("credentials", formData);
+                        } catch (error) {
+                            if (error instanceof AuthError) {
+                                return redirect(
+                                    "/logowanie?error=InvalidCredentials",
+                                );
+                            }
+                            throw error;
+                        }
+                    }}
+                >
                     <div className="space-y-1">
                         <label
                             htmlFor="email"

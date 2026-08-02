@@ -2,6 +2,7 @@ import Link from "next/link";
 import { GoogleSignIn } from "@/components/auth/GoogleSignIn";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import { signUp } from "@/lib/actions";
 
 export default async function RegisterPage() {
     const session = await auth();
@@ -30,7 +31,16 @@ export default async function RegisterPage() {
                     </div>
                 </div>
 
-                <form className="space-y-4">
+                <form
+                    className="space-y-4"
+                    action={async (formData: FormData) => {
+                        "use server";
+                        const res = await signUp(formData);
+                        if (res.success) {
+                            redirect("/logowanie");
+                        }
+                    }}
+                >
                     <div className="space-y-1">
                         <label
                             htmlFor="email"
