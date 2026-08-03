@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { GoogleSignIn } from "@/components/auth/GoogleSignIn";
-import { auth } from "@/lib/auth";
+import { auth, signIn } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { signUp } from "@/lib/actions";
 
@@ -37,7 +37,15 @@ export default async function RegisterPage() {
                         "use server";
                         const res = await signUp(formData);
                         if (res.success) {
-                            redirect("/logowanie");
+                            await signIn("credentials", {
+                                email: formData.get("email"),
+                                password: formData.get("password"),
+                                redirectTo: "/",
+                            });
+                        } else {
+                            redirect(
+                                `/rejestracja?error=${encodeURIComponent(res.message)}`,
+                            );
                         }
                     }}
                 >
