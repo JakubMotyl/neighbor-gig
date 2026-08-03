@@ -1,7 +1,12 @@
+"use server";
+
 import { executeAction } from "./executeAction";
 import { prisma } from "./prisma";
 import { schema } from "./schema";
 import bcrypt from "bcryptjs";
+import { signIn } from "./auth";
+import { AuthError } from "next-auth";
+import { redirect } from "next/navigation";
 
 const signUp = async (formData: FormData) => {
     return executeAction({
@@ -18,10 +23,9 @@ const signUp = async (formData: FormData) => {
                 where: { email: validatedData.email.toLowerCase() },
             });
 
-            if (existingUser)
-                throw new Error(
-                    "Użytkownik o podanym adresie e-mail już istnieje.",
-                );
+            if (existingUser) {
+                return redirect("/rejestracja?error=UserExists");
+            }
 
             await prisma.user.create({
                 data: {
@@ -30,8 +34,25 @@ const signUp = async (formData: FormData) => {
                     password: hashedPassword,
                 },
             });
+
+            await signIn("credentials", {
+                email: validatedData.email,
+                password: validatedData.password,
+                redirectTo: "/",
+            });
         },
     });
 };
 
-export { signUp };
+const signInWithCredentials = async (formData: FormData) => {
+    try {
+        await signIn("credentials", formData);
+    } catch (error) {
+        if (error instanceof AuthError)
+            redirect(`/logowanie?error=InvalidCredentials`);
+
+        throw error;
+    }
+};
+
+export { signUp, signInWithCredentials };
