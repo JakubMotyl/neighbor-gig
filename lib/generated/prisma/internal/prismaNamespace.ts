@@ -906,6 +906,7 @@ export const TaskScalarFieldEnum = {
   authorVerified: 'authorVerified',
   authorRating: 'authorRating',
   authorRatingCount: 'authorRatingCount',
+  authorId: 'authorId',
   executionTime: 'executionTime'
 } as const
 

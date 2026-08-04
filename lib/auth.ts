@@ -3,7 +3,7 @@ import Credentials from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
 import { prisma } from "./prisma";
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import { schema } from "./schema";
+import { schema } from "./schemas";
 import { v4 as uuid } from "uuid";
 import { encode } from "next-auth/jwt";
 import bcrypt from "bcryptjs";

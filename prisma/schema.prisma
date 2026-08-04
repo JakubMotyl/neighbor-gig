@@ -33,6 +33,10 @@ model Task {
   authorVerified  Boolean  @default(false)
   authorRating    Float @default(0)
   authorRatingCount Int @default(0)
+
+  authorId String
+  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
   executionTime ExecutionTime @default(FLEXIBLE)
 }
 
@@ -50,6 +54,7 @@ model User {
  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  tasks Task[]
 }
  
 model Account {
@@ -106,3 +111,4 @@ model Authenticator {
  
   @@id([userId, credentialID])
 }
+
