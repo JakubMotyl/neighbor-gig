@@ -33,7 +33,7 @@ const createTask = async (formData: FormData) => {
     });
 
     revalidatePath("/");
-    redirect("/");
+    redirect("/?success=TaskCreated");
 };
 
 export { createTask };

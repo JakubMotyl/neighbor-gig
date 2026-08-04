@@ -3,7 +3,7 @@ import { GoogleSignIn } from "@/components/auth/GoogleSignIn";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import RegisterForm from "@/components/auth/RegisterForm";
-import { AuthToast } from "@/components/auth/AuthToast";
+import { Toast } from "@/components/auth/Toast";
 
 export default async function RegisterPage({
     searchParams,
@@ -53,7 +53,7 @@ export default async function RegisterPage({
                 </div>
             </div>
 
-            <AuthToast errorType={params?.error} />
+            <Toast errorType={params?.error} />
         </main>
     );
 }

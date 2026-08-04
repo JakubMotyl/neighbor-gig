@@ -4,10 +4,14 @@ import TrustAndPro from "@/components/Home/TrustAndPro";
 import HowItWorks from "@/components/Home/HowItWorks";
 import ScrollHandler from "@/components/Home/ScrollHandler";
 import FaqSection from "@/components/Home/FaqSection";
-import { auth } from "@/lib/auth";
-import { redirect } from "next/navigation";
+import { Toast } from "@/components/auth/Toast";
 
-export default async function HomePage() {
+export default async function HomePage({
+    searchParams,
+}: {
+    searchParams: Promise<{ success?: string }>;
+}) {
+    const params = await searchParams;
     return (
         <>
             <ScrollHandler />
@@ -16,6 +20,7 @@ export default async function HomePage() {
             <TrustAndPro />
             <HowItWorks />
             <FaqSection />
+            <Toast successType={(await searchParams).success} />
         </>
     );
 }
