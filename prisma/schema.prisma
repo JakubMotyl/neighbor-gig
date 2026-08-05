@@ -28,16 +28,11 @@ model Task {
   price           Int
   createdAt       DateTime @default(now())
   isBoosted       Boolean  @default(false)
-  authorName      String
-  authorAvatar    String?
-  authorVerified  Boolean  @default(false)
-  authorRating    Float @default(0)
-  authorRatingCount Int @default(0)
 
-  authorId String
-  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId        String
+  author          User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
 
-  executionTime ExecutionTime @default(FLEXIBLE)
+  executionTime   ExecutionTime @default(FLEXIBLE)
 }
 
 model User {
@@ -46,17 +41,29 @@ model User {
   email         String          @unique
   emailVerified DateTime?
   image         String?
-  password String?
+  password      String?
+  
+  // --- DANE PROFILOWE ---
+  bio           String?         @db.Text
+  location      String?
+  dateOfBirth   DateTime?
+  skills        String[]        
+  
+  // --- REPUTACJA I WERYFIKACJA ---
+  isVerified    Boolean         @default(false)
+  rating        Float           @default(0)
+  ratingCount   Int             @default(0)
+  // ---------------------------
+
   accounts      Account[]
   sessions      Session[]
-  // Optional for WebAuthn support
   Authenticator Authenticator[]
  
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  tasks Task[]
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  tasks         Task[]
 }
- 
+
 model Account {
   userId            String
   type              String
@@ -96,7 +103,6 @@ model VerificationToken {
   @@id([identifier, token])
 }
  
-// Optional for WebAuthn support
 model Authenticator {
   credentialID         String  @unique
   userId               String
@@ -111,4 +117,3 @@ model Authenticator {
  
   @@id([userId, credentialID])
 }
-
