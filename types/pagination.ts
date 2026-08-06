@@ -1,7 +1,7 @@
-import { Task } from "@/lib/generated/prisma/client";
+import { Task, User } from "@/lib/generated/prisma/client";
 
 export interface TasksPaginatedResponse {
-    tasks: Task[];
+    tasks: (Task & { author: User })[];
     nextSkip: number | null;
     hasMore: boolean;
     totalTasks: number;

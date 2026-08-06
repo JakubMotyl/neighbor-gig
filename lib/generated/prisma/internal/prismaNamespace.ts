@@ -901,11 +901,6 @@ export const TaskScalarFieldEnum = {
   price: 'price',
   createdAt: 'createdAt',
   isBoosted: 'isBoosted',
-  authorName: 'authorName',
-  authorAvatar: 'authorAvatar',
-  authorVerified: 'authorVerified',
-  authorRating: 'authorRating',
-  authorRatingCount: 'authorRatingCount',
   authorId: 'authorId',
   executionTime: 'executionTime'
 } as const
@@ -920,6 +915,13 @@ export const UserScalarFieldEnum = {
   emailVerified: 'emailVerified',
   image: 'image',
   password: 'password',
+  bio: 'bio',
+  location: 'location',
+  dateOfBirth: 'dateOfBirth',
+  skills: 'skills',
+  isVerified: 'isVerified',
+  rating: 'rating',
+  ratingCount: 'ratingCount',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -1060,20 +1062,6 @@ export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
 
 
 /**
- * Reference to a field of type 'Float'
- */
-export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
-    
-
-
-/**
- * Reference to a field of type 'Float[]'
- */
-export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
-    
-
-
-/**
  * Reference to a field of type 'ExecutionTime'
  */
 export type EnumExecutionTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ExecutionTime'>
@@ -1084,6 +1072,20 @@ export type EnumExecutionTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$Pr
  * Reference to a field of type 'ExecutionTime[]'
  */
 export type ListEnumExecutionTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ExecutionTime[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Float'
+ */
+export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+/**
+ * Reference to a field of type 'Float[]'
+ */
+export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
 
 /**

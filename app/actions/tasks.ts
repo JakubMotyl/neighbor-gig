@@ -25,7 +25,9 @@ export async function getPaginatedTasks(
     }
 
     if (sort === "verified") {
-        where.authorVerified = true;
+        where.author = {
+            isVerified: true,
+        };
     }
 
     let orderBy: Prisma.TaskOrderByWithRelationInput[] = [
@@ -34,7 +36,7 @@ export async function getPaginatedTasks(
     ];
 
     if (sort === "rating") {
-        orderBy = [{ isBoosted: "desc" }, { authorRating: "desc" }];
+        orderBy = [{ isBoosted: "desc" }, { author: { rating: "desc" } }];
     }
 
     const tasks = await prisma.task.findMany({
@@ -42,6 +44,10 @@ export async function getPaginatedTasks(
         skip,
         take,
         orderBy,
+
+        include: {
+            author: true,
+        },
     });
 
     const totalTasks = await prisma.task.count({ where });

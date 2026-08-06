@@ -84,11 +84,6 @@ export const TaskScalarFieldEnum = {
   price: 'price',
   createdAt: 'createdAt',
   isBoosted: 'isBoosted',
-  authorName: 'authorName',
-  authorAvatar: 'authorAvatar',
-  authorVerified: 'authorVerified',
-  authorRating: 'authorRating',
-  authorRatingCount: 'authorRatingCount',
   authorId: 'authorId',
   executionTime: 'executionTime'
 } as const
@@ -103,6 +98,13 @@ export const UserScalarFieldEnum = {
   emailVerified: 'emailVerified',
   image: 'image',
   password: 'password',
+  bio: 'bio',
+  location: 'location',
+  dateOfBirth: 'dateOfBirth',
+  skills: 'skills',
+  isVerified: 'isVerified',
+  rating: 'rating',
+  ratingCount: 'ratingCount',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

@@ -5,10 +5,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { slugify } from "@/lib/utils";
-import { Task, ExecutionTime } from "@/lib/generated/prisma/client";
+import { Task, User, ExecutionTime } from "@/lib/generated/prisma/client";
 
 interface ZlecenieCardProps {
-    task: Task;
+    task: Task & { author: User };
 }
 
 export const EXECUTION_TIME_LABELS: Record<ExecutionTime, string> = {
@@ -25,6 +25,9 @@ export default function ZlecenieCard({ task }: ZlecenieCardProps) {
         const taskSlug = slugify(task.title);
         router.push(`/zlecenia/${taskSlug}-${task.id}`);
     };
+
+    const authorName = task.author?.name || "Użytkownik";
+
     return (
         <article
             className="group rounded-3xl bg-surface border border-gray-100 p-5 md:p-6 flex flex-col justify-between h-full cursor-pointer hover:border-gray-300"
@@ -48,7 +51,7 @@ export default function ZlecenieCard({ task }: ZlecenieCardProps) {
                         )}
                     </div>
 
-                    {task.authorVerified && (
+                    {task.author?.isVerified && (
                         <div className="flex items-center gap-1">
                             <ShieldCheck className="w-4 h-4 text-primary fill-primary/10 shrink-0" />
                             <Link
@@ -92,31 +95,32 @@ export default function ZlecenieCard({ task }: ZlecenieCardProps) {
 
             <div className="border-t border-gray-100 pt-4 mt-auto flex items-center justify-between gap-3">
                 <div className="flex items-center gap-2.5">
-                    {task.authorAvatar ? (
+                    {task.author?.image ? (
                         <Image
-                            src={task.authorAvatar}
-                            alt={task.authorName}
+                            src={task.author.image}
+                            alt={authorName}
                             className="rounded-full object-cover border border-gray-100"
                             width={32}
                             height={32}
                         />
                     ) : (
                         <div className="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center font-bold text-slate-600">
-                            {task.authorName.charAt(0)}
+                            {authorName.charAt(0).toUpperCase()}
                         </div>
                     )}
                     <div className="flex flex-col">
                         <span className="font-bold text-xs text-text-main leading-none mb-1">
-                            {task.authorName}
+                            {authorName}
                         </span>
 
                         <div className="flex items-center gap-1 text-[11px] font-bold text-text-main leading-none">
                             <Star className="w-3 h-3 text-amber-500 fill-amber-500 shrink-0" />
-                            {task.authorRatingCount > 0 ? (
+
+                            {task.author?.ratingCount > 0 ? (
                                 <>
-                                    <span>{task.authorRating.toFixed(1)}</span>
+                                    <span>{task.author.rating.toFixed(1)}</span>
                                     <span className="text-text-muted font-medium text-[10px]">
-                                        ({task.authorRatingCount})
+                                        ({task.author.ratingCount})
                                     </span>
                                 </>
                             ) : (

@@ -27,7 +27,7 @@ const createTask = async (formData: FormData) => {
     await prisma.task.create({
         data: {
             authorId: session.user.id,
-            authorName: session.user.name || session.user.email || "Użytkownik",
+
             ...validatedTask.data,
         },
     });
