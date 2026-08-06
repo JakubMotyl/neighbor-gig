@@ -23,6 +23,9 @@ export default async function TaskDetailsPage({
 
     const task = await prisma.task.findUnique({
         where: { id: taskId },
+        include: {
+            author: true,
+        },
     });
 
     if (!task) notFound();
