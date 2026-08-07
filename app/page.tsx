@@ -20,7 +20,7 @@ export default async function HomePage({
             <TrustAndPro />
             <HowItWorks />
             <FaqSection />
-            <Toast successType={(await searchParams).success} />
+            <Toast successType={params.success} />
         </>
     );
 }
