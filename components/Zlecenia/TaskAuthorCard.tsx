@@ -1,6 +1,9 @@
 import Image from "next/image";
-import { ShieldCheck, Star } from "lucide-react";
+// Dodaliśmy ChevronRight do importów z lucide-react
+import { ShieldCheck, Star, ChevronRight } from "lucide-react";
 import { Task, User } from "@/lib/generated/prisma/client";
+import { slugify } from "@/lib/utils";
+import Link from "next/link";
 
 export default function TaskAuthorCard({
     task,
@@ -8,6 +11,9 @@ export default function TaskAuthorCard({
     task: Task & { author: User };
 }) {
     const authorName = task.author?.name || "Użytkownik";
+
+    const nameSlug = slugify(authorName);
+    const profileUrl = `/profil/${nameSlug}-${task.author.id}`;
 
     return (
         <section
@@ -20,28 +26,35 @@ export default function TaskAuthorCard({
             >
                 Zleceniodawca
             </h2>
-            <div className="flex items-center justify-between flex-wrap gap-4">
+
+            <Link
+                href={profileUrl}
+                className="group flex items-center justify-between w-full p-3 -mx-3 rounded-2xl hover:bg-slate-50 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                aria-label={`Przejdź do profilu użytkownika ${authorName}`}
+            >
                 <div className="flex items-center gap-4">
-                    {task.author?.image ? (
-                        <Image
-                            src={task.author.image}
-                            alt={`Zdjęcie profilowe użytkownika ${authorName}`}
-                            width={56}
-                            height={56}
-                            className="rounded-full object-cover border border-gray-100"
-                        />
-                    ) : (
-                        <div
-                            className="w-14 h-14 rounded-full bg-slate-200 flex items-center justify-center font-bold text-slate-600 text-xl"
-                            aria-hidden="true"
-                        >
-                            {authorName.charAt(0).toUpperCase()}
-                        </div>
-                    )}
+                    <div className="relative shrink-0">
+                        {task.author?.image ? (
+                            <Image
+                                src={task.author.image}
+                                alt={`Zdjęcie profilowe użytkownika ${authorName}`}
+                                width={56}
+                                height={56}
+                                className="rounded-full object-cover border border-gray-100 group-hover:border-primary/30 transition-colors duration-200"
+                            />
+                        ) : (
+                            <div
+                                className="w-14 h-14 rounded-full bg-slate-200 flex items-center justify-center font-bold text-slate-600 text-xl group-hover:bg-slate-300 transition-colors duration-200"
+                                aria-hidden="true"
+                            >
+                                {authorName.charAt(0).toUpperCase()}
+                            </div>
+                        )}
+                    </div>
 
                     <div className="space-y-1">
                         <div className="flex items-center gap-2">
-                            <span className="font-bold text-base text-text-main">
+                            <span className="font-bold text-base text-text-main group-hover:text-primary transition-colors duration-200">
                                 {authorName}
                             </span>
 
@@ -77,7 +90,11 @@ export default function TaskAuthorCard({
                         </div>
                     </div>
                 </div>
-            </div>
+
+                <div className="flex items-center justify-center w-9 h-9 rounded-full bg-white border border-gray-100 shadow-sm group-hover:border-primary/20 group-hover:bg-primary/5 transition-all duration-200 shrink-0 text-text-muted group-hover:text-primary">
+                    <ChevronRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+                </div>
+            </Link>
         </section>
     );
 }
