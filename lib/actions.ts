@@ -2,7 +2,7 @@
 
 import { executeAction } from "./executeAction";
 import { prisma } from "./prisma";
-import { schema } from "./schemas";
+import { schema } from "./zod";
 import bcrypt from "bcryptjs";
 import { signIn } from "./auth";
 import { AuthError } from "next-auth";

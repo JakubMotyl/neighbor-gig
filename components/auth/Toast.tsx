@@ -46,6 +46,16 @@ export function Toast({ errorType, successType }: ToastProps) {
                     message:
                         "Użytkownik o podanym adresie e-mail już istnieje.",
                 };
+            case "InformationUpdated":
+                return {
+                    title: "Profil zaktualizowany!",
+                    message: "Twoje dane zostały pomyślnie zapisane.",
+                };
+            case "InvalidData":
+                return {
+                    title: "Niepoprawne dane",
+                    message: "Twoje dane nie zostały zaktualizowane.",
+                };
             default:
                 return {
                     title: "Coś poszło nie tak",

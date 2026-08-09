@@ -34,7 +34,7 @@ export function TaskForm() {
                         type="text"
                         required
                         minLength={5}
-                        maxLength={100}
+                        maxLength={40}
                         placeholder="Naprawa cieknącego kranu w kuchni"
                         className="w-full px-4 py-3 rounded-xl border border-gray-200 text-text-main placeholder:text-text-muted/70 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm font-medium bg-transparent"
                     />
@@ -80,6 +80,7 @@ export function TaskForm() {
                             type="text"
                             required
                             minLength={2}
+                            maxLength={30}
                             placeholder="Warszawa, Mokotów"
                             className="w-full px-4 py-3 rounded-xl border border-gray-200 text-text-main placeholder:text-text-muted/70 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm font-medium bg-transparent"
                         />
@@ -100,6 +101,7 @@ export function TaskForm() {
                             type="number"
                             required
                             min={1}
+                            max={100000}
                             placeholder="200"
                             className="w-full px-4 py-3 pr-14 rounded-xl border border-gray-200 text-text-main placeholder:text-text-muted/70 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm font-medium bg-transparent"
                         />
@@ -122,6 +124,7 @@ export function TaskForm() {
                         required
                         rows={5}
                         minLength={20}
+                        maxLength={200}
                         placeholder="Opisz zakres prac, wymagania oraz preferowane terminy realizacji..."
                         className="w-full px-4 py-3 rounded-xl border border-gray-200 text-text-main placeholder:text-text-muted/70 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm font-medium bg-transparent resize-none"
                     />
