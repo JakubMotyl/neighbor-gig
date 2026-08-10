@@ -52,6 +52,11 @@ export type Task = Prisma.TaskModel
  */
 export type User = Prisma.UserModel
 /**
+ * Model Offer
+ * 
+ */
+export type Offer = Prisma.OfferModel
+/**
  * Model Account
  * 
  */

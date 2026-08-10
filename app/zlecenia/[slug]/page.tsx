@@ -2,22 +2,25 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { prisma } from "@/lib/prisma";
-import Navbar from "@/components/layout/Navbar";
 import { theme } from "@/styles/theme";
-
 import TaskHeader from "@/components/Zlecenia/TaskHeader";
 import TaskDescription from "@/components/Zlecenia/TaskDescription";
 import TaskAuthorCard from "@/components/Zlecenia/TaskAuthorCard";
 import TaskActionCard from "@/components/Zlecenia/TaskActionCard";
+import { Toast } from "@/components/auth/Toast";
+import { auth } from "@/lib/auth";
 
 interface TaskDetailsPageProps {
     params: Promise<{ slug: string }>;
+    searchParams: Promise<{ error: string; success: string }>;
 }
 
 export default async function TaskDetailsPage({
     params,
+    searchParams,
 }: TaskDetailsPageProps) {
     const { slug } = await params;
+    const resolvedSearchParams = await searchParams;
 
     const taskId = slug.slice(-36);
 
@@ -29,6 +32,10 @@ export default async function TaskDetailsPage({
     });
 
     if (!task) notFound();
+
+    const session = await auth();
+    const currentUserId = session?.user?.id;
+    const isAuthor = currentUserId === task.authorId;
 
     return (
         <>
@@ -53,10 +60,18 @@ export default async function TaskDetailsPage({
                     </article>
 
                     <aside className="lg:col-span-1">
-                        <TaskActionCard price={task.price} taskId={task.id} />
+                        <TaskActionCard
+                            price={task.price}
+                            taskId={task.id}
+                            isAuthor={isAuthor}
+                        />
                     </aside>
                 </div>
             </main>
+            <Toast
+                errorType={resolvedSearchParams.error}
+                successType={resolvedSearchParams.success}
+            />
         </>
     );
 }

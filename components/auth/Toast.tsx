@@ -56,6 +56,26 @@ export function Toast({ errorType, successType }: ToastProps) {
                     title: "Niepoprawne dane",
                     message: "Twoje dane nie zostały zaktualizowane.",
                 };
+            case "OfferSent":
+                return {
+                    title: "Oferta wysłana!",
+                    message: "Twoje zgłoszenie trafiło do zleceniodawcy.",
+                };
+            case "OwnTask":
+                return {
+                    title: "Błąd zgłoszenia",
+                    message: "Nie możesz złożyć oferty do własnego zlecenia.",
+                };
+            case "OfferExists":
+                return {
+                    title: "Już aplikowałeś",
+                    message: "Złożyłeś już wcześniej ofertę do tego zadania.",
+                };
+            case "InvalidMessage":
+                return {
+                    title: "Błąd formularza",
+                    message: "Sprawdź wpisane dane i spróbuj ponownie.",
+                };
             default:
                 return {
                     title: "Coś poszło nie tak",

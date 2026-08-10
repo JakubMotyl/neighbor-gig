@@ -59,4 +59,18 @@ const editProfileSchema = z.object({
         .optional(),
 });
 
-export { schema, createTaskSchema, editProfileSchema };
+const offerSchema = z.object({
+    taskId: z
+        .string({ error: "Brak identyfikatora zlecenia" })
+        .min(1, "Błąd zlecenia"),
+    price: z.coerce
+        .number({ message: "Nieprawidłowa liczba" })
+        .min(1, "Kwota musi wynosić przynajmniej 1 PLN")
+        .max(100000, "Maksymalna kwota to 100 000 PLN"),
+    message: z
+        .string()
+        .min(10, "Wiadomość powinna mieć przynajmniej 10 znaków")
+        .max(200, "Wiadomość powinna mieć maksymalnie 200 znaków"),
+});
+
+export { schema, createTaskSchema, editProfileSchema, offerSchema };

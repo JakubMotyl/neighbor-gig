@@ -19,6 +19,12 @@ enum ExecutionTime {
   FLEXIBLE               
 }
 
+enum OfferStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
 model Task {
   id              String   @id @default(uuid())
   title           String
@@ -31,6 +37,7 @@ model Task {
 
   authorId        String
   author          User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  offers Offer[]
 
   executionTime   ExecutionTime @default(FLEXIBLE)
 }
@@ -62,6 +69,23 @@ model User {
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
   tasks         Task[]
+  offers        Offer[]
+}
+
+model Offer {
+  id String @id @default(uuid())
+  message String @db.Text
+  price Int
+  status OfferStatus @default(PENDING)
+  createdAt DateTime @default(now())
+
+  taskId String
+  task Task @relation(fields: [taskId], references: [id], onDelete: Cascade)
+
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([taskId, userId])
 }
 
 model Account {

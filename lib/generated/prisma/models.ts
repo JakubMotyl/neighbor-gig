@@ -10,6 +10,7 @@
  */
 export type * from './models/Task'
 export type * from './models/User'
+export type * from './models/Offer'
 export type * from './models/Account'
 export type * from './models/Session'
 export type * from './models/VerificationToken'

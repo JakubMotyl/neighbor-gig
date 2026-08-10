@@ -53,6 +53,7 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   Task: 'Task',
   User: 'User',
+  Offer: 'Offer',
   Account: 'Account',
   Session: 'Session',
   VerificationToken: 'VerificationToken',
@@ -110,6 +111,19 @@ export const UserScalarFieldEnum = {
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const OfferScalarFieldEnum = {
+  id: 'id',
+  message: 'message',
+  price: 'price',
+  status: 'status',
+  createdAt: 'createdAt',
+  taskId: 'taskId',
+  userId: 'userId'
+} as const
+
+export type OfferScalarFieldEnum = (typeof OfferScalarFieldEnum)[keyof typeof OfferScalarFieldEnum]
 
 
 export const AccountScalarFieldEnum = {

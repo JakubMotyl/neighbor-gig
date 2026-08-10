@@ -257,6 +257,7 @@ export type TaskWhereInput = {
   authorId?: Prisma.StringFilter<"Task"> | string
   executionTime?: Prisma.EnumExecutionTimeFilter<"Task"> | $Enums.ExecutionTime
   author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  offers?: Prisma.OfferListRelationFilter
 }
 
 export type TaskOrderByWithRelationInput = {
@@ -271,6 +272,7 @@ export type TaskOrderByWithRelationInput = {
   authorId?: Prisma.SortOrder
   executionTime?: Prisma.SortOrder
   author?: Prisma.UserOrderByWithRelationInput
+  offers?: Prisma.OfferOrderByRelationAggregateInput
 }
 
 export type TaskWhereUniqueInput = Prisma.AtLeast<{
@@ -288,6 +290,7 @@ export type TaskWhereUniqueInput = Prisma.AtLeast<{
   authorId?: Prisma.StringFilter<"Task"> | string
   executionTime?: Prisma.EnumExecutionTimeFilter<"Task"> | $Enums.ExecutionTime
   author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  offers?: Prisma.OfferListRelationFilter
 }, "id">
 
 export type TaskOrderByWithAggregationInput = {
@@ -335,6 +338,7 @@ export type TaskCreateInput = {
   isBoosted?: boolean
   executionTime?: $Enums.ExecutionTime
   author: Prisma.UserCreateNestedOneWithoutTasksInput
+  offers?: Prisma.OfferCreateNestedManyWithoutTaskInput
 }
 
 export type TaskUncheckedCreateInput = {
@@ -348,6 +352,7 @@ export type TaskUncheckedCreateInput = {
   isBoosted?: boolean
   authorId: string
   executionTime?: $Enums.ExecutionTime
+  offers?: Prisma.OfferUncheckedCreateNestedManyWithoutTaskInput
 }
 
 export type TaskUpdateInput = {
@@ -361,6 +366,7 @@ export type TaskUpdateInput = {
   isBoosted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   executionTime?: Prisma.EnumExecutionTimeFieldUpdateOperationsInput | $Enums.ExecutionTime
   author?: Prisma.UserUpdateOneRequiredWithoutTasksNestedInput
+  offers?: Prisma.OfferUpdateManyWithoutTaskNestedInput
 }
 
 export type TaskUncheckedUpdateInput = {
@@ -374,6 +380,7 @@ export type TaskUncheckedUpdateInput = {
   isBoosted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   executionTime?: Prisma.EnumExecutionTimeFieldUpdateOperationsInput | $Enums.ExecutionTime
+  offers?: Prisma.OfferUncheckedUpdateManyWithoutTaskNestedInput
 }
 
 export type TaskCreateManyInput = {
@@ -471,6 +478,11 @@ export type TaskOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type TaskScalarRelationFilter = {
+  is?: Prisma.TaskWhereInput
+  isNot?: Prisma.TaskWhereInput
+}
+
 export type StringFieldUpdateOperationsInput = {
   set?: string
 }
@@ -537,6 +549,20 @@ export type TaskUncheckedUpdateManyWithoutAuthorNestedInput = {
   deleteMany?: Prisma.TaskScalarWhereInput | Prisma.TaskScalarWhereInput[]
 }
 
+export type TaskCreateNestedOneWithoutOffersInput = {
+  create?: Prisma.XOR<Prisma.TaskCreateWithoutOffersInput, Prisma.TaskUncheckedCreateWithoutOffersInput>
+  connectOrCreate?: Prisma.TaskCreateOrConnectWithoutOffersInput
+  connect?: Prisma.TaskWhereUniqueInput
+}
+
+export type TaskUpdateOneRequiredWithoutOffersNestedInput = {
+  create?: Prisma.XOR<Prisma.TaskCreateWithoutOffersInput, Prisma.TaskUncheckedCreateWithoutOffersInput>
+  connectOrCreate?: Prisma.TaskCreateOrConnectWithoutOffersInput
+  upsert?: Prisma.TaskUpsertWithoutOffersInput
+  connect?: Prisma.TaskWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TaskUpdateToOneWithWhereWithoutOffersInput, Prisma.TaskUpdateWithoutOffersInput>, Prisma.TaskUncheckedUpdateWithoutOffersInput>
+}
+
 export type TaskCreateWithoutAuthorInput = {
   id?: string
   title: string
@@ -547,6 +573,7 @@ export type TaskCreateWithoutAuthorInput = {
   createdAt?: Date | string
   isBoosted?: boolean
   executionTime?: $Enums.ExecutionTime
+  offers?: Prisma.OfferCreateNestedManyWithoutTaskInput
 }
 
 export type TaskUncheckedCreateWithoutAuthorInput = {
@@ -559,6 +586,7 @@ export type TaskUncheckedCreateWithoutAuthorInput = {
   createdAt?: Date | string
   isBoosted?: boolean
   executionTime?: $Enums.ExecutionTime
+  offers?: Prisma.OfferUncheckedCreateNestedManyWithoutTaskInput
 }
 
 export type TaskCreateOrConnectWithoutAuthorInput = {
@@ -603,6 +631,74 @@ export type TaskScalarWhereInput = {
   executionTime?: Prisma.EnumExecutionTimeFilter<"Task"> | $Enums.ExecutionTime
 }
 
+export type TaskCreateWithoutOffersInput = {
+  id?: string
+  title: string
+  description: string
+  categorySlug: string
+  location: string
+  price: number
+  createdAt?: Date | string
+  isBoosted?: boolean
+  executionTime?: $Enums.ExecutionTime
+  author: Prisma.UserCreateNestedOneWithoutTasksInput
+}
+
+export type TaskUncheckedCreateWithoutOffersInput = {
+  id?: string
+  title: string
+  description: string
+  categorySlug: string
+  location: string
+  price: number
+  createdAt?: Date | string
+  isBoosted?: boolean
+  authorId: string
+  executionTime?: $Enums.ExecutionTime
+}
+
+export type TaskCreateOrConnectWithoutOffersInput = {
+  where: Prisma.TaskWhereUniqueInput
+  create: Prisma.XOR<Prisma.TaskCreateWithoutOffersInput, Prisma.TaskUncheckedCreateWithoutOffersInput>
+}
+
+export type TaskUpsertWithoutOffersInput = {
+  update: Prisma.XOR<Prisma.TaskUpdateWithoutOffersInput, Prisma.TaskUncheckedUpdateWithoutOffersInput>
+  create: Prisma.XOR<Prisma.TaskCreateWithoutOffersInput, Prisma.TaskUncheckedCreateWithoutOffersInput>
+  where?: Prisma.TaskWhereInput
+}
+
+export type TaskUpdateToOneWithWhereWithoutOffersInput = {
+  where?: Prisma.TaskWhereInput
+  data: Prisma.XOR<Prisma.TaskUpdateWithoutOffersInput, Prisma.TaskUncheckedUpdateWithoutOffersInput>
+}
+
+export type TaskUpdateWithoutOffersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  categorySlug?: Prisma.StringFieldUpdateOperationsInput | string
+  location?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isBoosted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  executionTime?: Prisma.EnumExecutionTimeFieldUpdateOperationsInput | $Enums.ExecutionTime
+  author?: Prisma.UserUpdateOneRequiredWithoutTasksNestedInput
+}
+
+export type TaskUncheckedUpdateWithoutOffersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  categorySlug?: Prisma.StringFieldUpdateOperationsInput | string
+  location?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isBoosted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  authorId?: Prisma.StringFieldUpdateOperationsInput | string
+  executionTime?: Prisma.EnumExecutionTimeFieldUpdateOperationsInput | $Enums.ExecutionTime
+}
+
 export type TaskCreateManyAuthorInput = {
   id?: string
   title: string
@@ -625,6 +721,7 @@ export type TaskUpdateWithoutAuthorInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isBoosted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   executionTime?: Prisma.EnumExecutionTimeFieldUpdateOperationsInput | $Enums.ExecutionTime
+  offers?: Prisma.OfferUpdateManyWithoutTaskNestedInput
 }
 
 export type TaskUncheckedUpdateWithoutAuthorInput = {
@@ -637,6 +734,7 @@ export type TaskUncheckedUpdateWithoutAuthorInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isBoosted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   executionTime?: Prisma.EnumExecutionTimeFieldUpdateOperationsInput | $Enums.ExecutionTime
+  offers?: Prisma.OfferUncheckedUpdateManyWithoutTaskNestedInput
 }
 
 export type TaskUncheckedUpdateManyWithoutAuthorInput = {
@@ -652,6 +750,35 @@ export type TaskUncheckedUpdateManyWithoutAuthorInput = {
 }
 
 
+/**
+ * Count Type TaskCountOutputType
+ */
+
+export type TaskCountOutputType = {
+  offers: number
+}
+
+export type TaskCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  offers?: boolean | TaskCountOutputTypeCountOffersArgs
+}
+
+/**
+ * TaskCountOutputType without action
+ */
+export type TaskCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TaskCountOutputType
+   */
+  select?: Prisma.TaskCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * TaskCountOutputType without action
+ */
+export type TaskCountOutputTypeCountOffersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.OfferWhereInput
+}
+
 
 export type TaskSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -665,6 +792,8 @@ export type TaskSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   authorId?: boolean
   executionTime?: boolean
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  offers?: boolean | Prisma.Task$offersArgs<ExtArgs>
+  _count?: boolean | Prisma.TaskCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["task"]>
 
 export type TaskSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -711,6 +840,8 @@ export type TaskSelectScalar = {
 export type TaskOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "categorySlug" | "location" | "price" | "createdAt" | "isBoosted" | "authorId" | "executionTime", ExtArgs["result"]["task"]>
 export type TaskInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  offers?: boolean | Prisma.Task$offersArgs<ExtArgs>
+  _count?: boolean | Prisma.TaskCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TaskIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -723,6 +854,7 @@ export type $TaskPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name: "Task"
   objects: {
     author: Prisma.$UserPayload<ExtArgs>
+    offers: Prisma.$OfferPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1130,6 +1262,7 @@ readonly fields: TaskFieldRefs;
 export interface Prisma__TaskClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   author<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  offers<T extends Prisma.Task$offersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Task$offersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OfferPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1567,6 +1700,30 @@ export type TaskDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Limit how many Tasks to delete.
    */
   limit?: number
+}
+
+/**
+ * Task.offers
+ */
+export type Task$offersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Offer
+   */
+  select?: Prisma.OfferSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Offer
+   */
+  omit?: Prisma.OfferOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OfferInclude<ExtArgs> | null
+  where?: Prisma.OfferWhereInput
+  orderBy?: Prisma.OfferOrderByWithRelationInput | Prisma.OfferOrderByWithRelationInput[]
+  cursor?: Prisma.OfferWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.OfferScalarFieldEnum | Prisma.OfferScalarFieldEnum[]
 }
 
 /**

@@ -17,3 +17,12 @@ export const ExecutionTime = {
 } as const
 
 export type ExecutionTime = (typeof ExecutionTime)[keyof typeof ExecutionTime]
+
+
+export const OfferStatus = {
+  PENDING: 'PENDING',
+  ACCEPTED: 'ACCEPTED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type OfferStatus = (typeof OfferStatus)[keyof typeof OfferStatus]
