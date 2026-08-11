@@ -1,64 +1,40 @@
 "use server";
-
+import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { TasksPaginatedResponse } from "@/types/pagination";
-import { Prisma } from "@/lib/generated/prisma/client";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+import { createTaskSchema } from "../../lib/zod";
 
-export async function getPaginatedTasks(
-    skip: number = 0,
-    take: number = 6,
-    category?: string,
-    keyword?: string,
-    sort?: string,
-): Promise<TasksPaginatedResponse> {
-    let where: Prisma.TaskWhereInput = {};
+const createTask = async (formData: FormData) => {
+    const session = await auth();
 
-    if (category) {
-        where.categorySlug = category;
+    if (!session?.user?.id) redirect("/logowanie");
+
+    const rawData = {
+        title: formData.get("title"),
+        description: formData.get("description"),
+        location: formData.get("location"),
+        price: formData.get("price"),
+        categorySlug: formData.get("categorySlug"),
+        executionTime: formData.get("executionTime"),
+    };
+
+    const validatedTask = createTaskSchema.safeParse(rawData);
+
+    if (!validatedTask.success) {
+        console.error("Zod Validation Error:", validatedTask.error);
+        redirect("/dodaj-zlecenie?error=InvalidData");
     }
 
-    if (keyword) {
-        where.title = {
-            contains: keyword,
-            mode: "insensitive",
-        };
-    }
-
-    if (sort === "verified") {
-        where.author = {
-            isVerified: true,
-        };
-    }
-
-    let orderBy: Prisma.TaskOrderByWithRelationInput[] = [
-        { isBoosted: "desc" },
-        { createdAt: "desc" },
-    ];
-
-    if (sort === "rating") {
-        orderBy = [{ isBoosted: "desc" }, { author: { rating: "desc" } }];
-    }
-
-    const tasks = await prisma.task.findMany({
-        where,
-        skip,
-        take,
-        orderBy,
-
-        include: {
-            author: true,
+    await prisma.task.create({
+        data: {
+            authorId: session.user.id,
+            ...validatedTask.data,
         },
     });
 
-    const totalTasks = await prisma.task.count({ where });
+    revalidatePath("/", "layout");
+    redirect("/?success=TaskCreated");
+};
 
-    const nextSkip = skip + take;
-    const hasMore = nextSkip < totalTasks;
-
-    return {
-        tasks,
-        nextSkip: hasMore ? nextSkip : null,
-        hasMore,
-        totalTasks,
-    };
-}
+export { createTask };

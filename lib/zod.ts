@@ -36,6 +36,12 @@ const createTaskSchema = z.object({
         .string()
         .min(1, "Wybierz kategorię")
         .max(50, "Błędna kategoria"),
+    executionTime: z.enum([
+        "ASAP",
+        "WITHIN_FEW_DAYS",
+        "THIS_WEEKEND",
+        "FLEXIBLE",
+    ]),
 });
 
 const editProfileSchema = z.object({

@@ -39,7 +39,13 @@ export default async function EditProfilePage({
             // Wykonawca (Sent offers)
             offers: {
                 include: {
-                    task: true,
+                    task: {
+                        include: {
+                            author: {
+                                select: { name: true },
+                            },
+                        },
+                    },
                 },
             },
         },
@@ -54,6 +60,47 @@ export default async function EditProfilePage({
             ...offer,
             task: task,
         })),
+    );
+
+    const bossEvents = user.tasks
+        .filter((task) =>
+            task.offers.some((offer) => offer.status === "ACCEPTED"),
+        )
+        .map((task) => {
+            const acceptedOffer = task.offers.find(
+                (offer) => offer.status === "ACCEPTED",
+            );
+            return {
+                id: task.id,
+                title: task.title,
+                date: task.executionTime,
+                role: "zleceniodawca" as const,
+                personName: acceptedOffer?.user?.name || "Nieznany wykonawca",
+            };
+        });
+
+    const workerEvents = user.offers
+        .filter((offer) => offer.status === "ACCEPTED")
+        .map((offer) => {
+            return {
+                id: offer.task.id,
+                title: offer.task.title,
+                date: offer.task.executionTime,
+                role: "wykonawca" as const,
+                personName: offer.task.author?.name || "Nieznany zleceniodawca",
+            };
+        });
+
+    // Time weight variable to ease sorting based on enum ExecutionTime
+    const timeWeight: Record<string, number> = {
+        ASAP: 1,
+        WITHIN_FEW_DAYS: 2,
+        THIS_WEEKEND: 3,
+        FLEXIBLE: 4,
+    };
+
+    const calendarEvents = [...bossEvents, ...workerEvents].sort(
+        (a, b) => timeWeight[a.date] - timeWeight[b.date],
     );
 
     return (
@@ -79,7 +126,7 @@ export default async function EditProfilePage({
                     <DashboardTasks tasks={user.tasks} />
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <DashboardCalendar />
+                        <DashboardCalendar events={calendarEvents} />
                         <DashboardInbox
                             sentOffers={sentOffers}
                             receivedOffers={receivedOffers}

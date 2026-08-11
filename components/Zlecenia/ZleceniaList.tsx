@@ -2,7 +2,7 @@
 
 import ZlecenieCard from "./ZlecenieCard";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { getPaginatedTasks } from "@/app/actions/tasks";
+import { getPaginatedTasks } from "@/app/actions/paginatedTasks";
 import { Loader2 } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 

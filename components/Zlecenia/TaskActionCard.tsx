@@ -43,7 +43,6 @@ export default function TaskActionCard({
                     </div>
                 </div>
 
-                {/* WARUNKOWE RENDEROWANIE AKCJI */}
                 <div className="space-y-3">
                     {isAuthor ? (
                         <div className="w-full py-4 px-4 bg-primary/10 border border-primary/20 rounded-xl text-center">
@@ -104,7 +103,6 @@ export default function TaskActionCard({
                 </div>
             </section>
 
-            {/* MODAL ZGŁOSZENIOWY - renderowany tylko dla wykonawców */}
             {isModalOpen && !isAuthor && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4 animate-in fade-in duration-200">
                     <div className="bg-surface w-full max-w-lg rounded-3xl p-6 md:p-8 shadow-2xl relative animate-in zoom-in-95 duration-200">
@@ -159,7 +157,8 @@ export default function TaskActionCard({
                                     htmlFor="message"
                                     className="block text-sm font-semibold text-text-main"
                                 >
-                                    Wiadomość powitalna
+                                    Wiadomość dla zlecającego (zaproponuj dzień
+                                    i godzinę)
                                 </label>
                                 <textarea
                                     id="message"
@@ -168,7 +167,7 @@ export default function TaskActionCard({
                                     rows={4}
                                     minLength={10}
                                     maxLength={200}
-                                    placeholder="Napisz, dlaczego jesteś odpowiednią osobą do tego zadania..."
+                                    placeholder="Napisz, dlaczego to Ty powinieneś wykonać to zlecenie i zaproponuj dokładny termin (np. 'Mogę być w sobotę o 10:00')."
                                     className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-slate-50 text-text-main focus:bg-surface focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm font-medium resize-none"
                                 />
                                 <p className="text-[11px] text-text-muted text-right">
