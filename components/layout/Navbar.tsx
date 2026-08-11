@@ -48,7 +48,7 @@ export default async function Navbar() {
                 {session?.user ? (
                     <div className="flex items-center gap-3">
                         <Link
-                            href="/profil"
+                            href="/profil/edytuj"
                             className="relative flex items-center justify-center w-9 h-9 rounded-full bg-primary/10 border border-primary/20 text-primary font-bold text-sm hover:opacity-80 transition-opacity shrink-0 overflow-hidden"
                             title={
                                 session.user.name ||

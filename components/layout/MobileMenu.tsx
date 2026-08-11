@@ -71,7 +71,7 @@ export default function MobileMenu({ session }: { session: any }) {
                         {session?.user ? (
                             <div className="flex flex-col items-center gap-3 pt-2">
                                 <Link
-                                    href="/profil"
+                                    href="/profil/edytuj"
                                     onClick={closeMenu}
                                     className="flex items-center gap-3 bg-gray-100 px-4 py-2 rounded-2xl max-w-full hover:bg-gray-200/70 transition-colors"
                                 >

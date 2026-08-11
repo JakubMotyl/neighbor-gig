@@ -26,11 +26,35 @@ export default async function EditProfilePage({
     const user = await prisma.user.findUnique({
         where: { id: userId },
         include: {
-            tasks: true,
+            // Zleceniodawca (Received offers)
+            tasks: {
+                include: {
+                    offers: {
+                        include: {
+                            user: true,
+                        },
+                    },
+                },
+            },
+            // Wykonawca (Sent offers)
+            offers: {
+                include: {
+                    task: true,
+                },
+            },
         },
     });
 
     if (!user) redirect("/logowanie");
+
+    const sentOffers = user?.offers;
+
+    const receivedOffers = user.tasks.flatMap((task) =>
+        task.offers.map((offer) => ({
+            ...offer,
+            task: task,
+        })),
+    );
 
     return (
         <main
@@ -56,7 +80,10 @@ export default async function EditProfilePage({
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <DashboardCalendar />
-                        <DashboardInbox />
+                        <DashboardInbox
+                            sentOffers={sentOffers}
+                            receivedOffers={receivedOffers}
+                        />
                     </div>
                 </div>
             </div>
