@@ -11,7 +11,13 @@ export async function getPaginatedTasks(
     keyword?: string,
     sort?: string,
 ): Promise<TasksPaginatedResponse> {
-    let where: Prisma.TaskWhereInput = {};
+    let where: Prisma.TaskWhereInput = {
+        offers: {
+            none: {
+                status: "ACCEPTED",
+            },
+        },
+    };
 
     if (category) {
         where.categorySlug = category;
