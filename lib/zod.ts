@@ -79,4 +79,25 @@ const offerSchema = z.object({
         .max(200, "Wiadomość powinna mieć maksymalnie 200 znaków"),
 });
 
-export { schema, createTaskSchema, editProfileSchema, offerSchema };
+const forgotPasswordSchema = z.object({
+    email: z
+        .email({ error: "Nieprawidłowy adres e-mail." })
+        .max(255, "Adres e-mail jest za długi"),
+});
+
+const resetPasswordSchema = z.object({
+    password: z
+        .string({ error: "Niepoprawne hasło" })
+        .min(6, "Hasło musi mieć minimum 6 znaków")
+        .max(72, "Hasło jest za długie"),
+    token: z.string(),
+});
+
+export {
+    schema,
+    createTaskSchema,
+    editProfileSchema,
+    offerSchema,
+    forgotPasswordSchema,
+    resetPasswordSchema,
+};
