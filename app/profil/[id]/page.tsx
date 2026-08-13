@@ -1,7 +1,6 @@
 import { theme } from "@/styles/theme";
 import ProfileMainCard from "@/components/Profile/ProfileMainCard";
 import ProfileBio from "@/components/Profile/ProfileBio";
-import ProfileSkills from "@/components/Profile/ProfileSkills";
 import ProfileTasks from "@/components/Profile/ProfileTasks";
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
@@ -32,8 +31,6 @@ export default async function PublicProfilePage({
                 <ProfileMainCard user={user} />
 
                 <ProfileBio bio={user.bio} />
-
-                <ProfileSkills skills={user.skills} />
 
                 <ProfileTasks tasks={user.tasks} />
             </div>

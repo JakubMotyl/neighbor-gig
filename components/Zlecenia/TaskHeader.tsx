@@ -1,8 +1,13 @@
 import { MapPin, Calendar, Clock, Tag } from "lucide-react";
 import { Task } from "@/lib/generated/prisma/client";
 import { EXECUTION_TIME_LABELS } from "./ZlecenieCard";
+import { GIG_CATEGORIES } from "@/constants/categories";
 
 export default function TaskHeader({ task }: { task: Task }) {
+    const categoryObj = GIG_CATEGORIES.find(
+        (c) => c.slug === task.categorySlug,
+    );
+    const categoryName = categoryObj?.name || "Usługa";
     return (
         <header className="space-y-4">
             <div className="flex flex-wrap items-center gap-2">
@@ -13,7 +18,7 @@ export default function TaskHeader({ task }: { task: Task }) {
                 )}
                 <span className="inline-flex items-center gap-1 text-xs font-semibold text-text-muted bg-gray-100 px-3 py-1 rounded-xl">
                     <Tag className="w-3.5 h-3.5" aria-hidden="true" />
-                    <span>{task.categorySlug}</span>
+                    <span className="uppercase">{categoryName}</span>
                 </span>
             </div>
 

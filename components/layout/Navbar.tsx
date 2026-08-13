@@ -33,17 +33,21 @@ export default async function Navbar() {
                 </ul>
             </div>
 
-            {/* Right Side */}
-            <div className="hidden md:flex items-center space-x-3 h-full">
+            {/* Right side */}
+
+            <div className="hidden md:flex items-center gap-4 h-full">
                 <Button
                     href="/dodaj-zlecenie"
                     variant="primary"
-                    className="text-xs py-2 px-3.5 font-bold whitespace-nowrap shadow-sm shadow-primary/20 hover:translate-y-0"
+                    className="text-xs py-2 px-3.5 font-bold whitespace-nowrap shadow-sm shadow-primary/20"
                 >
                     + Dodaj zlecenie
                 </Button>
 
-                <div className="h-4 w-px bg-gray-200 mx-1" aria-hidden="true" />
+                <div
+                    className="h-6 w-px bg-gray-200 shrink-0"
+                    aria-hidden="true"
+                />
 
                 {session?.user ? (
                     <div className="flex items-center gap-3">
@@ -55,12 +59,14 @@ export default async function Navbar() {
                                 session.user.email ||
                                 "Profil"
                             }
+                            aria-label="Przejdź do edycji profilu"
                         >
                             {session.user.image ? (
                                 <Image
                                     src={session.user.image}
-                                    alt="Avatar"
+                                    alt={`Avatar użytkownika ${session.user.name || ""}`}
                                     fill
+                                    sizes="36px"
                                     className="object-cover"
                                 />
                             ) : (
@@ -73,7 +79,7 @@ export default async function Navbar() {
                     <Button
                         href="/logowanie"
                         variant="outline"
-                        className="text-xs py-2 px-3.5 whitespace-nowrap hover:translate-y-0"
+                        className="text-xs py-2 px-3.5 whitespace-nowrap"
                     >
                         Logowanie
                     </Button>

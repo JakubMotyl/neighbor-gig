@@ -4,8 +4,11 @@ import SubmitButton from "@/components/auth/SubmitButton";
 import { createTask } from "@/app/actions/tasks";
 import { GIG_CATEGORIES } from "@/constants/categories";
 import { EXECUTION_TIME_LABELS } from "../Zlecenia/ZlecenieCard";
+import { useState } from "react";
 
 export function TaskForm() {
+    const [charCount, setCharCount] = useState(0);
+
     return (
         <form
             action={createTask}
@@ -153,7 +156,18 @@ export function TaskForm() {
                         maxLength={200}
                         placeholder="Opisz zakres prac, wymagania oraz preferowane terminy realizacji..."
                         className="w-full px-4 py-3 rounded-xl border border-gray-200 text-text-main placeholder:text-text-muted/70 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm font-medium bg-transparent resize-none"
+                        onChange={(e) => setCharCount(e.target.value.length)}
                     />
+                    <div className="flex items-center justify-between mt-1">
+                        <p className="text-[11px] font-medium">
+                            Minimum 20 znaków
+                        </p>
+                        <p
+                            className={`text-[11px] font-medium ${charCount < 20 ? "text-red-500" : "text-green-600"}`}
+                        >
+                            {charCount} / 200
+                        </p>
+                    </div>
                 </div>
             </div>
 

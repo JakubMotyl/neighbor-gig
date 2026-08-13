@@ -16,6 +16,22 @@ export const metadata: Metadata = {
     title: "Gigo | Szybka pomoc w twojej okolicy",
     description:
         "Znajdź zaufanych sąsiadów do drobnych prac, montażu mebli i wyprowadzania psów. Bezpiecznie, szybko i lokalnie.",
+    keywords: [
+        "pomoc sąsiedzka",
+        "zlecenia",
+        "złota rączka",
+        "prace domowe",
+        "gigo",
+    ],
+    openGraph: {
+        title: "Gigo | Szybka pomoc w twojej okolicy",
+        description:
+            "Znajdź zaufanych sąsiadów do drobnych prac. Bezpiecznie, szybko i lokalnie.",
+        url: "https://neighbor-gig-sage.vercel.app/",
+        siteName: "Gigo",
+        locale: "pl_PL",
+        type: "website",
+    },
 };
 
 export default function RootLayout({

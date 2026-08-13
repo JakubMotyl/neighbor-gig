@@ -6,9 +6,13 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { slugify } from "@/lib/utils";
 import { Task, User, ExecutionTime } from "@/lib/generated/prisma/client";
+import { GIG_CATEGORIES } from "@/constants/categories";
 
 interface ZlecenieCardProps {
-    task: Task & { author: User };
+    task: Task & {
+        author: User;
+        category?: { name: string };
+    };
 }
 
 export const EXECUTION_TIME_LABELS: Record<ExecutionTime, string> = {
@@ -28,36 +32,46 @@ export default function ZlecenieCard({ task }: ZlecenieCardProps) {
 
     const authorName = task.author?.name || "Użytkownik";
 
+    const categoryObj = GIG_CATEGORIES.find(
+        (c) => c.slug === task.categorySlug,
+    );
+    const categoryName = categoryObj?.name || "Usługa";
+
     return (
         <article
-            className="group rounded-3xl bg-surface border border-gray-100 p-5 md:p-6 flex flex-col justify-between h-full cursor-pointer hover:border-gray-300"
+            className="group rounded-3xl bg-surface border border-gray-100 p-4 md:p-5 flex flex-col h-full cursor-pointer hover:border-gray-300 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-transparent"
             onClick={handleCardClick}
             role="link"
             aria-label={`Przejdź do strony zlecenia ${task.title}`}
             tabIndex={0}
             onKeyDown={(e) => {
                 if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
                     handleCardClick();
                 }
             }}
         >
-            <div>
-                <div className="flex items-center justify-between gap-3 mb-3 min-h-6.5">
-                    <div className="flex items-center gap-2">
+            <div className="flex flex-col flex-1">
+                <div className="flex items-center justify-between gap-3 mb-2.5 min-h-6">
+                    <div className="flex items-center gap-2 flex-wrap">
+                        <span className="text-[10px] uppercase tracking-wider font-extrabold bg-gray-100 text-gray-600 border border-gray-200 px-2 py-0.5 rounded-lg shrink-0">
+                            {categoryName}
+                        </span>
+
                         {task.isBoosted && (
-                            <span className="text-[10px] uppercase tracking-wider font-extrabold bg-amber-500/10 text-amber-600 border border-amber-500/20 px-2.5 py-1 rounded-xl">
+                            <span className="text-[10px] uppercase tracking-wider font-extrabold bg-amber-500/10 text-amber-600 border border-amber-500/20 px-2 py-0.5 rounded-lg shrink-0">
                                 Promowane
                             </span>
                         )}
                     </div>
 
                     {task.author?.isVerified && (
-                        <div className="flex items-center gap-1">
+                        <div className="flex items-center gap-1 shrink-0">
                             <ShieldCheck className="w-4 h-4 text-primary fill-primary/10 shrink-0" />
                             <Link
                                 href="/bezpieczenstwo"
                                 onClick={(e) => e.stopPropagation()}
-                                className="text-[10px] font-medium text-text-muted hover:text-primary underline transition-colors"
+                                className="text-[10px] font-medium text-text-muted hover:text-primary underline transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary rounded-sm"
                             >
                                 Zweryfikowany
                             </Link>
@@ -65,22 +79,24 @@ export default function ZlecenieCard({ task }: ZlecenieCardProps) {
                     )}
                 </div>
 
-                <h3 className="text-lg font-bold text-text-main line-clamp-2 mb-2 group-hover:text-primary transition-colors leading-snug">
+                <h3 className="text-base md:text-lg font-bold text-text-main line-clamp-2 wrap-break-word mb-1.5 group-hover:text-primary transition-colors leading-snug">
                     {task.title}
                 </h3>
 
-                <p className="text-sm font-medium text-text-muted line-clamp-2 mb-5 leading-relaxed">
+                <p className="text-sm font-medium text-text-muted line-clamp-2 wrap-break-word mb-4 leading-relaxed">
                     {task.description}
                 </p>
 
-                <div className="flex sm:flex-row flex-col justify-between w-full text-xs font-semibold text-text-muted mb-5">
+                <div className="mt-auto flex flex-row flex-wrap items-center gap-x-4 gap-y-2 text-xs font-semibold text-text-muted mb-4">
                     <div className="flex items-center gap-1">
-                        <MapPin className="w-3.5 h-3.5" />
-                        <span className="truncate">{task.location}</span>
+                        <MapPin className="w-3.5 h-3.5 shrink-0" />
+                        <span className="truncate max-w-30">
+                            {task.location}
+                        </span>
                     </div>
                     <div className="flex items-center gap-1">
-                        <Calendar className="w-3.5 h-3.5" />
-                        <span>
+                        <Calendar className="w-3.5 h-3.5 shrink-0" />
+                        <span className="shrink-0">
                             {new Date(task.createdAt).toLocaleDateString(
                                 "pl-PL",
                                 {
@@ -93,23 +109,24 @@ export default function ZlecenieCard({ task }: ZlecenieCardProps) {
                 </div>
             </div>
 
-            <div className="border-t border-gray-100 pt-4 mt-auto flex items-center justify-between gap-3">
+            <div className="border-t border-gray-100 pt-3 flex items-center justify-between gap-2 shrink-0">
                 <div className="flex items-center gap-2.5">
                     {task.author?.image ? (
                         <Image
                             src={task.author.image}
-                            alt={authorName}
-                            className="rounded-full object-cover border border-gray-100"
+                            alt={`Avatar użytkownika ${authorName}`}
+                            className="rounded-full object-cover border border-gray-100 shrink-0"
                             width={32}
                             height={32}
                         />
                     ) : (
-                        <div className="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center font-bold text-slate-600">
+                        <div className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center font-bold text-slate-600 text-xs shrink-0">
                             {authorName.charAt(0).toUpperCase()}
                         </div>
                     )}
-                    <div className="flex flex-col">
-                        <span className="font-bold text-xs text-text-main leading-none mb-1">
+
+                    <div className="flex flex-col min-w-0">
+                        <span className="font-bold text-xs text-text-main leading-none mb-1 line-clamp-1 break-all">
                             {authorName}
                         </span>
 
@@ -124,7 +141,7 @@ export default function ZlecenieCard({ task }: ZlecenieCardProps) {
                                     </span>
                                 </>
                             ) : (
-                                <span className="text-text-muted font-medium text-[10px]">
+                                <span className="text-text-muted font-medium text-[10px] whitespace-nowrap">
                                     Brak ocen
                                 </span>
                             )}
@@ -132,11 +149,11 @@ export default function ZlecenieCard({ task }: ZlecenieCardProps) {
                     </div>
                 </div>
 
-                <div className="text-right">
-                    <span className="text-[20px] font-black text-text-main block leading-none mb-1">
+                <div className="text-right flex flex-col items-end shrink-0 pl-2">
+                    <span className="text-lg md:text-[20px] font-black text-text-main block leading-none mb-1">
                         {task.price} PLN
                     </span>
-                    <span className="text-[10px] font-medium text-text-muted block leading-none">
+                    <span className="text-[10px] font-medium text-text-muted block leading-none text-right">
                         {EXECUTION_TIME_LABELS[task.executionTime]}
                     </span>
                 </div>

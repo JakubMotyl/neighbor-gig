@@ -6,7 +6,7 @@ import { Prisma } from "@/lib/generated/prisma/client";
 
 export async function getPaginatedTasks(
     skip: number = 0,
-    take: number = 6,
+    take: number = 10,
     category?: string,
     keyword?: string,
     sort?: string,
