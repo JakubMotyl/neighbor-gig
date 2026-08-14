@@ -7,7 +7,13 @@ const schema = z.object({
 
     password: z
         .string()
-        .min(6, "Hasło musi mieć minimum 6 znaków")
+        .min(8, "Hasło musi mieć minimum 6 znaków")
+        .regex(/[A-Z]/, "Hasło musi zawierać co najmniej jedną wielką literę")
+        .regex(/\d/, "Hasło musi zawierać co najmniej jedną cyfrę")
+        .regex(
+            /[^A-Za-z0-9]/,
+            "Hasło musi zawierać co najmniej jeden znak specjalny",
+        )
         .max(72, "Hasło jest za długie"),
 });
 
