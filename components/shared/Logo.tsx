@@ -6,16 +6,16 @@ export default function Logo() {
         <Link
             href={"/"}
             aria-label="Strona główna Gigo"
-            className="shrink-0 max-w-34 block"
+            className="shrink-0 block"
         >
             <Image
                 src={"/images/gigo-logo.png"}
                 alt="Gigo logo"
-                width={160}
-                height={50}
+                width={180}
+                height={55}
                 priority
                 fetchPriority="high"
-                className="w-auto h-auto"
+                className="object-contain"
             />
         </Link>
     );

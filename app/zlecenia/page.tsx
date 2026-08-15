@@ -14,7 +14,9 @@ export default async function Zlecenia({
 
     return (
         <>
-            <main className={`${theme.layout.sectionSpacing} flex flex-col`}>
+            <main
+                className={`${theme.layout.sectionSpacing} flex flex-col flex-1`}
+            >
                 <Suspense
                     fallback={
                         <div className="h-20 animate-pulse bg-gray-100 rounded-3xl max-w-5xl mx-auto" />

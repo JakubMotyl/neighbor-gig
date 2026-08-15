@@ -11,24 +11,24 @@ export const FOOTER_LINKS: FooterGroup[] = [
         links: [
             { name: "Jak to działa", href: "/#jak-to-dziala" },
             { name: "FAQ", href: "/#faq" },
-            { name: "Kontakt", href: "/kontakt" },
+            { name: "Kontakt", href: "#" },
         ],
     },
     {
         title: "Dla Użytkowników",
         links: [
             { name: "Zlecaj zadania", href: "/zlecenia" },
-            { name: "Zostań Wykonawcą", href: "/rejestracja" },
-            { name: "Gig-Boost", href: "/gig-boost" },
-            { name: "Bezpieczeństwo", href: "/bezpieczenstwo" },
+            { name: "Zostań Wykonawcą", href: "#" },
+            { name: "Gig-Boost", href: "#" },
+            { name: "Bezpieczeństwo", href: "#" },
         ],
     },
     {
         title: "Informacje prawne",
         links: [
-            { name: "Regulamin", href: "/regulamin" },
-            { name: "Polityka prywatności", href: "/polityka-prywatnosci" },
-            { name: "Polityka Cookies", href: "/cookies" },
+            { name: "Regulamin", href: "#" },
+            { name: "Polityka prywatności", href: "#" },
+            { name: "Polityka Cookies", href: "#" },
         ],
     },
 ];

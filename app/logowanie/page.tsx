@@ -32,7 +32,7 @@ export default async function LoginPage({
 
                     <div className="relative flex items-center justify-center">
                         <div className="w-full border-t border-gray-200" />
-                        <span className="absolute bg-white px-3 text-xs uppercase text-slate-400 font-medium">
+                        <span className="absolute bg-white px-3 text-xs uppercase text-primary font-medium">
                             lub kontynuuj e-mailem
                         </span>
                     </div>
