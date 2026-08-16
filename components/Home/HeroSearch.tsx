@@ -51,14 +51,13 @@ export default function HomeSearch() {
         router.push(`/zlecenia?category=${category.slug}`);
     };
 
-    // Form submission handler (triggered by Enter key or button click)
-    const handleSearch = (formData: FormData) => {
+    // Form submission handler
+    const handleSearch = () => {
         setIsOpen(false);
-        const query = formData.get("query")?.toString().trim() || "";
+        const query = searchQuery.trim();
 
         const showError = (message: string) => {
             setCategoryError(message);
-            // Clear existing timeout to prevent overlapping errors if user clicks repeatedly
             if (timeoutRef.current) clearTimeout(timeoutRef.current);
             timeoutRef.current = setTimeout(() => {
                 setCategoryError(null);
@@ -97,7 +96,10 @@ export default function HomeSearch() {
             className="relative w-full max-w-2xl flex flex-col items-center gap-4"
         >
             <form
-                action={handleSearch}
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    handleSearch();
+                }}
                 className="flex w-full flex-col gap-3 md:flex-row md:items-center bg-surface p-2 rounded-2xl shadow-sm border border-gray-200 transition-colors focus-within:border-primary focus-within:ring-4 focus-within:ring-primary/10"
             >
                 <div className="flex flex-1 items-center px-4 gap-3">
@@ -156,6 +158,7 @@ export default function HomeSearch() {
                                 <li key={cat.id}>
                                     <button
                                         type="button"
+                                        onMouseDown={(e) => e.preventDefault()}
                                         onClick={() =>
                                             handleSelectCategory(cat)
                                         }
