@@ -98,6 +98,7 @@ export function Toast({ errorType, successType }: ToastProps) {
     return (
         <div
             className={`fixed bottom-6 right-6 z-50 flex items-center gap-3 px-5 py-4 rounded-2xl shadow-2xl border animate-in slide-in-from-bottom-5 fade-in duration-300 ${containerStyles}`}
+            role="alert"
         >
             {isSuccess ? (
                 <CheckCircle2 className="w-5 h-5 shrink-0" />
