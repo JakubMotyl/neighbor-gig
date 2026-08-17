@@ -65,7 +65,7 @@ export default function ZleceniaSearch() {
                         className="flex flex-col md:flex-row md:items-stretch divide-y divide-gray-100 md:divide-y-0 md:divide-x border-gray-100"
                         aria-label="Wyszukaj usługę"
                     >
-                        <div className="flex items-center gap-3 px-4 py-3 md:px-5 md:py-4 md:min-w-[260px] relative">
+                        <div className="flex items-center gap-3 px-4 py-3 md:px-5 md:py-4 md:min-w-65 relative">
                             <label htmlFor="category" className="sr-only">
                                 Kategoria
                             </label>
@@ -145,7 +145,7 @@ export default function ZleceniaSearch() {
                             />
                         </div>
 
-                        <div className="px-4 py-3 md:px-5 md:py-4 flex items-center md:min-w-[160px]">
+                        <div className="px-4 py-3 md:px-5 md:py-4 flex items-center md:min-w-40">
                             <Button
                                 type="submit"
                                 variant="primary"
