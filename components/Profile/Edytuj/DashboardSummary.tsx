@@ -1,6 +1,6 @@
 import { ShieldCheck, Mail, MapPin, Calendar } from "lucide-react";
 import Image from "next/image";
-import { calculateAge } from "@/lib/utils";
+import { calculateAge, formatAge } from "@/lib/utils";
 
 export default function DashboardSummary({ user }: { user: any }) {
     const age = calculateAge(user.dateOfBirth);
@@ -50,10 +50,10 @@ export default function DashboardSummary({ user }: { user: any }) {
                     <MapPin className="w-4 h-4 shrink-0" />
                     <span>{user.location || "Brak lokalizacji"}</span>
                 </div>
-                {age && (
+                {age !== null && (
                     <div className="flex items-center gap-3 text-sm text-text-muted">
                         <Calendar className="w-4 h-4 shrink-0" />
-                        <span>{age} lat</span>
+                        <span>{formatAge(age)}</span>
                     </div>
                 )}
             </div>

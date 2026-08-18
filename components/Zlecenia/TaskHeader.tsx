@@ -22,7 +22,7 @@ export default function TaskHeader({ task }: { task: Task }) {
                 </span>
             </div>
 
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-text-main leading-tight">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-text-main leading-tight wrap-break-word">
                 {task.title}
             </h1>
 

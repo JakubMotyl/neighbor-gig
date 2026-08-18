@@ -1,18 +1,37 @@
 "use client";
-import Button from "@/components/shared/Button";
-import { Save, ExternalLink } from "lucide-react";
+
+import SubmitButton from "@/components/auth/SubmitButton";
+import { Save, ExternalLink, AlertCircle } from "lucide-react";
 import { User } from "@/lib/generated/prisma/client";
 import Link from "next/link";
-import { slugify } from "@/lib/utils";
+import { slugify, calculateAge } from "@/lib/utils";
 import { updateProfile } from "@/app/actions/profile";
+import { useState } from "react";
 
 interface EditProfileFormProps {
     user: User;
 }
 
 export default function EditProfileForm({ user }: EditProfileFormProps) {
+    const [ageError, setAgeError] = useState<string | null>(null);
+
     const nameSlug = slugify(user.name || "uzytkownik");
     const profileUrl = `/profil/${nameSlug}-${user.id}`;
+
+    const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const val = e.target.value;
+        if (!val) {
+            setAgeError(null);
+            return;
+        }
+
+        const age = calculateAge(new Date(val));
+        if (age !== null && age < 18) {
+            setAgeError("Musisz mieć ukończone co najmniej 18 lat.");
+        } else {
+            setAgeError(null);
+        }
+    };
 
     return (
         <section
@@ -57,8 +76,19 @@ export default function EditProfileForm({ user }: EditProfileFormProps) {
                                 ? user.dateOfBirth.toISOString().split("T")[0]
                                 : ""
                         }
-                        className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-gray-200 focus:bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all text-sm font-medium"
+                        onChange={handleDateChange}
+                        className={`w-full px-4 py-3 rounded-xl bg-slate-50 border transition-all text-sm font-medium outline-none ${
+                            ageError
+                                ? "border-red-500 bg-red-50/20"
+                                : "border-gray-200 focus:bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                        }`}
                     />
+                    {ageError && (
+                        <p className="text-xs font-semibold text-red-500 flex items-center gap-1 pt-1">
+                            <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                            <span>{ageError}</span>
+                        </p>
+                    )}
                 </div>
 
                 <div className="space-y-1.5">
@@ -96,14 +126,14 @@ export default function EditProfileForm({ user }: EditProfileFormProps) {
                 </div>
 
                 <div className="pt-4 flex flex-col gap-3">
-                    <Button
-                        type="submit"
-                        variant="primary"
-                        className="w-full flex items-center justify-center gap-2 py-3 rounded-xl cursor-pointer"
+                    <SubmitButton
+                        disabled={!!ageError}
+                        pendingLabel="Zapisywanie danych..."
+                        className="flex items-center justify-center gap-2"
                     >
                         <Save className="w-4 h-4" />
                         Zapisz zmiany
-                    </Button>
+                    </SubmitButton>
 
                     <div className="text-center border-t border-gray-100 pt-3 mt-1">
                         <Link

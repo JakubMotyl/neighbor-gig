@@ -31,3 +31,20 @@ export function calculateAge(dateOfBirth: Date | null): number | null {
     }
     return age;
 }
+
+export function formatAge(age: number): string {
+    if (age === 1) return "1 rok";
+
+    const lastDigit = age % 10;
+    const lastTwoDigits = age % 100;
+
+    if (lastTwoDigits >= 12 && lastTwoDigits <= 14) {
+        return `${age} lat`;
+    }
+
+    if (lastDigit >= 2 && lastDigit <= 4) {
+        return `${age} lata`;
+    }
+
+    return `${age} lat`;
+}
