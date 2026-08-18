@@ -2,6 +2,7 @@ import { Briefcase } from "lucide-react";
 import Link from "next/link";
 import { Task } from "@/lib/generated/prisma/client";
 import TaskListItem from "@/components/shared/TaskListItem";
+import DeleteTaskButton from "@/components/shared/DeleteTaskButton";
 
 interface DashboardTasksProps {
     tasks: Task[];
@@ -31,7 +32,17 @@ export default function DashboardTasks({ tasks }: DashboardTasksProps) {
             {tasks.length > 0 ? (
                 <div className="space-y-3">
                     {tasks.map((task) => (
-                        <TaskListItem key={task.id} task={task} />
+                        <div
+                            key={task.id}
+                            className="flex items-center justify-between gap-2 p-1 rounded-2xl transition-colors hover:bg-slate-50/60"
+                        >
+                            <div className="flex-1 min-w-0">
+                                <TaskListItem task={task} />
+                            </div>
+                            <div className="shrink-0 pr-2">
+                                <DeleteTaskButton taskId={task.id} />
+                            </div>
+                        </div>
                     ))}
                 </div>
             ) : (

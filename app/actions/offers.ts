@@ -61,3 +61,22 @@ export const createOffer = async (formData: FormData) => {
     revalidatePath(fullTaskPath);
     redirect(`${fullTaskPath}?success=OfferSent`);
 };
+
+export const deleteTask = async (taskId: string) => {
+    const session = await auth();
+    if (!session?.user?.id) {
+        throw new Error("Brak autoryzacji");
+    }
+
+    const userId = session.user.id;
+
+    await prisma.task.delete({
+        where: {
+            id: taskId,
+            authorId: userId,
+        },
+    });
+
+    revalidatePath("/profil/edytuj");
+    revalidatePath("/zlecenia");
+};
