@@ -233,3 +233,12 @@ npx playwright test
 # Run tests with interactive UI
 npx playwright test --ui
 ```
+
+---
+
+## Roadmap / Planned Improvements
+
+- **Real-time Messaging:** WebSocket / SSE integration for instant inbox chat notifications between neighbors.
+- **Payments & Escrow:** Stripe Connect integration for automated payouts and escrow protection upon task completion.
+- **Optimistic UI Updates:** Implementing React 19 `useOptimistic` for instantaneous task deletion and offer submission.
+- **Interactive Geo-Map:** Interactive Mapbox/Leaflet integration for radius-based task discovery.
