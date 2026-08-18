@@ -7,7 +7,7 @@ import {
     MessageSquare,
 } from "lucide-react";
 import { User } from "@/lib/generated/prisma/client";
-import { calculateAge } from "@/lib/utils";
+import { calculateAge, formatAge } from "@/lib/utils";
 
 interface ProfileMainCardProps {
     user: User;
@@ -21,6 +21,8 @@ export default function ProfileMainCard({ user }: ProfileMainCardProps) {
             year: "numeric",
         },
     );
+
+    const age = calculateAge(user.dateOfBirth);
 
     return (
         <div className="bg-surface rounded-3xl p-6 md:p-8 border border-gray-100 shadow-sm flex flex-col items-center text-center">
@@ -42,7 +44,7 @@ export default function ProfileMainCard({ user }: ProfileMainCardProps) {
                 </div>
             </div>
 
-            <div className="flex item-center gap-1.5 justify-center mb-2">
+            <div className="flex items-center gap-1.5 justify-center mb-2">
                 <h1 className="text-2xl font-black text-text-main tracking-tight">
                     {user.name || "Użytkownik"}
                 </h1>
@@ -52,11 +54,7 @@ export default function ProfileMainCard({ user }: ProfileMainCardProps) {
             </div>
 
             <div className="flex items-center justify-center gap-2 text-sm font-medium text-text-muted mb-5 flex-wrap">
-                <span>
-                    {user.dateOfBirth
-                        ? `${calculateAge(user.dateOfBirth)} lat`
-                        : "Wiek nieznany"}
-                </span>
+                <span>{age !== null ? formatAge(age) : "Wiek nieznany"}</span>
                 <span className="w-1 h-1 bg-gray-300 rounded-full" />
                 <span className="flex items-center gap-1">
                     <MapPin className="w-4 h-4" />

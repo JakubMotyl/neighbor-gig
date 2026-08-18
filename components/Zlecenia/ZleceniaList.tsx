@@ -3,7 +3,7 @@
 import ZlecenieCard from "./ZlecenieCard";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getPaginatedTasks } from "@/app/actions/paginatedTasks";
-
+import ZlecenieCardSkeleton from "../shared/ZlecenieCardSkeleton";
 import { Loader2, SearchX } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
@@ -38,14 +38,16 @@ export default function ZleceniaList() {
 
     if (isLoading) {
         return (
-            <div
-                className="w-full py-12 flex justify-center items-center text-text-muted"
-                role="status"
-                aria-live="polite"
-            >
-                <Loader2 className="w-6 h-6 animate-spin mr-2" />
-                <span>Ładowanie zleceń...</span>
-            </div>
+            <section className="w-full mx-auto py-4">
+                <div className="mb-6 flex justify-between items-center">
+                    <div className="h-5 w-40 bg-gray-200 rounded animate-pulse" />
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {Array.from({ length: 6 }).map((_, index) => (
+                        <ZlecenieCardSkeleton key={index} />
+                    ))}
+                </div>
+            </section>
         );
     }
 

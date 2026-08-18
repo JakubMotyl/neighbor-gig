@@ -1,56 +1,50 @@
 import {
-    ClipboardPlus,
+    PlusCircle,
     Users,
-    CheckCircle2,
+    CheckCircle,
     Search,
-    Wallet,
+    Send,
     Star,
 } from "lucide-react";
 
-interface StepsProps {
-    icon: React.ComponentType<{ className?: string }>;
-    title: string;
-    description: string;
-}
-
-export const CLIENT_STEPS: StepsProps[] = [
+export const CLIENT_STEPS = [
     {
-        icon: ClipboardPlus,
-        title: "Dodaj zadanie",
+        icon: PlusCircle,
+        title: "Dodaj ogłoszenie",
         description:
-            "Opisz krótko, co masz do zrobienia, określ budżet i ramy czasowe.",
+            "Opisz, w czym potrzebujesz pomocy, ustal swój budżet i dogodny termin.",
     },
     {
         icon: Users,
-        title: "Wybierz sąsiada",
+        title: "Wybierz wykonawcę",
         description:
-            "Przeglądaj zgłoszenia od zweryfikowanych wykonawców i wybierz najlepszą ofertę.",
+            "Otrzymuj oferty od osób z okolicy, sprawdzaj ich profile, oceny i wybierz najlepszą.",
     },
     {
-        icon: CheckCircle2,
-        title: "Odzyskaj czas",
+        icon: CheckCircle,
+        title: "Ciesz się efektem",
         description:
-            "Zlecenie zostaje wykonane, a Ty bezpiecznie rozliczasz się przez platformę.",
+            "Ustal szczegóły, zrealizuj zadanie i wystaw ocenę sąsiadowi po skończonej pracy.",
     },
 ];
 
-export const GIGGER_STEPS: StepsProps[] = [
+export const GIGGER_STEPS = [
     {
         icon: Search,
         title: "Przeglądaj zlecenia",
         description:
-            "Filtruj aktywne zadania w Twojej okolicy i zgłaszaj chęć do pomocy.",
+            "Filtruj ogłoszenia po kategoriach i lokalizacji, aby znaleźć zadania blisko Ciebie.",
     },
     {
-        icon: Wallet,
-        title: "Zarabiaj lokalnie",
+        icon: Send,
+        title: "Zgłoś swoją ofertę",
         description:
-            "Realizuj zadania na własnych warunkach i buduj swój portfel dochodów.",
+            "Zaproponuj swoją stawkę, termin i napisz krótką wiadomość do zlecającego.",
     },
     {
         icon: Star,
-        title: "Zbieraj opinie",
+        title: "Zarabiaj i buduj profil",
         description:
-            "Wykonuj świetną robotę, zdobywaj gwiazdki i zyskuj więcej stałych klientów.",
+            "Wykonuj zadania na własnych warunkach, zdobywaj pozytywne opinie i stałych klientów.",
     },
 ];
