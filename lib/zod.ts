@@ -55,15 +55,23 @@ const editProfileSchema = z.object({
         .string()
         .min(2, "Imię musi mieć przynajmniej 2 znaki")
         .max(50, "Imię jest za długie"),
-    dateOfBirth: z.coerce
-        .date({ message: "Nieprawidłowa data" })
-        .refine((date) => {
-            const minAgeDate = new Date();
-            minAgeDate.setFullYear(minAgeDate.getFullYear() - 18);
+    dateOfBirth: z.preprocess(
+        (val) => {
+            if (!val || val === "" || val === null || val === undefined) {
+                return undefined;
+            }
+            return val;
+        },
+        z.coerce
+            .date({ message: "Nieprawidłowa data" })
+            .refine((date) => {
+                const minAgeDate = new Date();
+                minAgeDate.setFullYear(minAgeDate.getFullYear() - 18);
 
-            return date <= minAgeDate;
-        }, "Musisz mieć ukończone 18 lat")
-        .optional(),
+                return date <= minAgeDate;
+            }, "Musisz mieć ukończone 18 lat")
+            .optional(),
+    ),
     location: z.string().max(30, "Lokalizacja jest za długa").optional(),
     bio: z
         .string()
