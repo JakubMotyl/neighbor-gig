@@ -49,14 +49,18 @@ export const createOffer = async (formData: FormData) => {
 
     if (existingOffer) redirect(`${fullTaskPath}?error=OfferExists`);
 
-    await prisma.offer.create({
-        data: {
-            message: validatedOffer.data.message,
-            taskId: validatedOffer.data.taskId,
-            price: validatedOffer.data.price,
-            userId: userId,
-        },
-    });
+    try {
+        await prisma.offer.create({
+            data: {
+                message: validatedOffer.data.message,
+                taskId: validatedOffer.data.taskId,
+                price: validatedOffer.data.price,
+                userId: userId,
+            },
+        });
+    } catch (err) {
+        throw new Error("Nie udało się złożyć oferty.");
+    }
 
     revalidatePath(fullTaskPath);
     redirect(`${fullTaskPath}?success=OfferSent`);
