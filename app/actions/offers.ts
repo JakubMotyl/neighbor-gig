@@ -49,14 +49,18 @@ export const createOffer = async (formData: FormData) => {
 
     if (existingOffer) redirect(`${fullTaskPath}?error=OfferExists`);
 
-    await prisma.offer.create({
-        data: {
-            message: validatedOffer.data.message,
-            taskId: validatedOffer.data.taskId,
-            price: validatedOffer.data.price,
-            userId: userId,
-        },
-    });
+    try {
+        await prisma.offer.create({
+            data: {
+                message: validatedOffer.data.message,
+                taskId: validatedOffer.data.taskId,
+                price: validatedOffer.data.price,
+                userId: userId,
+            },
+        });
+    } catch (err) {
+        throw new Error("Nie udało się złożyć oferty.");
+    }
 
     revalidatePath(fullTaskPath);
     redirect(`${fullTaskPath}?success=OfferSent`);
@@ -70,13 +74,16 @@ export const deleteTask = async (taskId: string) => {
 
     const userId = session.user.id;
 
-    await prisma.task.delete({
-        where: {
-            id: taskId,
-            authorId: userId,
-        },
-    });
-
+    try {
+        await prisma.task.delete({
+            where: {
+                id: taskId,
+                authorId: userId,
+            },
+        });
+    } catch (err) {
+        throw new Error("Nie udało się usunąć ogłoszenia.");
+    }
     revalidatePath("/profil/edytuj");
     revalidatePath("/zlecenia");
 };

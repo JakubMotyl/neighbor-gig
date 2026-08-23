@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { startTransition, useOptimistic, useState } from "react";
 import Image from "next/image";
 import {
     MessageSquare,
@@ -34,6 +34,35 @@ export default function DashboardInbox({
 }: DashboardInboxProps) {
     const [activeTab, setActiveTab] = useState<"received" | "sent">("received");
 
+    const [optimisticReceivedOffers, setOptimisticReceivedOffers] =
+        useOptimistic(
+            receivedOffers,
+            (
+                currentReceivedOffers,
+                update: { offerId: string; status: "ACCEPTED" | "REJECTED" },
+            ) => {
+                const targetOffer = currentReceivedOffers.find(
+                    (o) => o.id === update.offerId,
+                );
+                if (!targetOffer) return currentReceivedOffers;
+
+                return currentReceivedOffers.map((offer) => {
+                    if (offer.id === update.offerId) {
+                        return { ...offer, status: update.status };
+                    }
+
+                    if (
+                        update.status === "ACCEPTED" &&
+                        offer.taskId === targetOffer.taskId
+                    ) {
+                        return { ...offer, status: "REJECTED" };
+                    }
+
+                    return offer;
+                });
+            },
+        );
+
     const renderStatusBadge = (status: string) => {
         switch (status) {
             case "ACCEPTED":
@@ -57,6 +86,16 @@ export default function DashboardInbox({
         }
     };
 
+    const handleRespond = (
+        offerId: string,
+        status: "ACCEPTED" | "REJECTED",
+    ) => {
+        startTransition(async () => {
+            setOptimisticReceivedOffers({ offerId, status });
+            await respondToOffer(offerId, status);
+        });
+    };
+
     return (
         <section className="bg-surface rounded-3xl p-6 border border-gray-100 shadow-sm flex flex-col h-full">
             <header className="flex items-center justify-between mb-6">
@@ -75,7 +114,7 @@ export default function DashboardInbox({
                             : "text-text-muted hover:text-text-main"
                     }`}
                 >
-                    Otrzymane ({receivedOffers.length})
+                    Otrzymane ({optimisticReceivedOffers.length})
                 </button>
                 <button
                     onClick={() => setActiveTab("sent")}
@@ -92,7 +131,7 @@ export default function DashboardInbox({
             <div className="flex-1 overflow-y-auto pr-2 space-y-4 max-h-100 custom-scrollbar">
                 {activeTab === "received" && (
                     <>
-                        {receivedOffers.length === 0 ? (
+                        {optimisticReceivedOffers.length === 0 ? (
                             <div className="h-full min-h-50 flex flex-col items-center justify-center text-center p-6 border-2 border-dashed border-gray-100 rounded-2xl bg-slate-50">
                                 <p className="text-sm text-text-muted font-medium">
                                     Brak nowych zgłoszeń. <br /> Dodaj zlecenie,
@@ -100,7 +139,7 @@ export default function DashboardInbox({
                                 </p>
                             </div>
                         ) : (
-                            receivedOffers.map((offer) => (
+                            optimisticReceivedOffers.map((offer) => (
                                 <div
                                     key={offer.id}
                                     className="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-3"
@@ -154,7 +193,7 @@ export default function DashboardInbox({
                                         <div className="flex gap-2 pt-1">
                                             <Button
                                                 onClick={() =>
-                                                    respondToOffer(
+                                                    handleRespond(
                                                         offer.id,
                                                         "ACCEPTED",
                                                     )
@@ -167,7 +206,7 @@ export default function DashboardInbox({
                                             </Button>
                                             <Button
                                                 onClick={() =>
-                                                    respondToOffer(
+                                                    handleRespond(
                                                         offer.id,
                                                         "REJECTED",
                                                     )
