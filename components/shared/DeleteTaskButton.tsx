@@ -1,24 +1,22 @@
 "use client";
 
-import { useState, useTransition } from "react";
-import { Trash2, Loader2, AlertCircle } from "lucide-react";
-import { deleteTask } from "@/app/actions/offers";
+import { useState } from "react";
+import { Trash2, AlertCircle } from "lucide-react";
 
 interface DeleteTaskButtonProps {
     taskId: string;
-    onDelete?: (taskId: string) => Promise<void> | void;
+    onDelete: (taskId: string) => void;
 }
 
-export default function DeleteTaskButton({ taskId }: DeleteTaskButtonProps) {
+export default function DeleteTaskButton({
+    taskId,
+    onDelete,
+}: DeleteTaskButtonProps) {
     const [isOpen, setIsOpen] = useState(false);
-    const [isPending, startTransition] = useTransition();
 
-    const handleDelete = () => {
-        if (!deleteTask) return;
-        startTransition(async () => {
-            await deleteTask(taskId);
-            setIsOpen(false);
-        });
+    const handleClick = () => {
+        setIsOpen(false);
+        onDelete(taskId);
     };
 
     return (
@@ -63,23 +61,17 @@ export default function DeleteTaskButton({ taskId }: DeleteTaskButtonProps) {
                             <button
                                 type="button"
                                 onClick={() => setIsOpen(false)}
-                                disabled={isPending}
-                                className="w-full py-2.5 px-4 bg-slate-100 hover:bg-slate-200 text-text-main font-semibold text-xs rounded-xl transition-colors cursor-pointer disabled:opacity-50"
+                                className="w-full py-2.5 px-4 bg-slate-100 hover:bg-slate-200 text-text-main font-semibold text-xs rounded-xl transition-colors cursor-pointer"
                             >
                                 Anuluj
                             </button>
 
                             <button
                                 type="button"
-                                onClick={handleDelete}
-                                disabled={isPending}
-                                className="w-full py-2.5 px-4 bg-red-600 hover:bg-red-700 text-white font-semibold text-xs rounded-xl transition-colors flex items-center justify-center gap-1.5 shadow-sm shadow-red-600/20 cursor-pointer disabled:opacity-50"
+                                onClick={handleClick}
+                                className="w-full py-2.5 px-4 bg-red-600 hover:bg-red-700 text-white font-semibold text-xs rounded-xl transition-colors flex items-center justify-center gap-1.5 shadow-sm shadow-red-600/20 cursor-pointer"
                             >
-                                {isPending ? (
-                                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                                ) : (
-                                    "Usuń"
-                                )}
+                                Usuń
                             </button>
                         </div>
                     </div>

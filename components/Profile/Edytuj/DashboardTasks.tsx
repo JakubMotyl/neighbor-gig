@@ -1,14 +1,31 @@
+"use client";
 import { Briefcase } from "lucide-react";
 import Link from "next/link";
 import { Task } from "@/lib/generated/prisma/client";
 import TaskListItem from "@/components/shared/TaskListItem";
 import DeleteTaskButton from "@/components/shared/DeleteTaskButton";
+import { startTransition, useOptimistic, useTransition } from "react";
+import { deleteTask } from "@/app/actions/offers";
 
 interface DashboardTasksProps {
     tasks: Task[];
 }
 
 export default function DashboardTasks({ tasks }: DashboardTasksProps) {
+    const [optimisticTasks, setOptimisticTasks] = useOptimistic(
+        tasks,
+        (currentTasks, idToRemove: string) => {
+            return currentTasks.filter((task) => task.id !== idToRemove);
+        },
+    );
+
+    const handleDeleteTask = (taskId: string) => {
+        startTransition(async () => {
+            setOptimisticTasks(taskId);
+            await deleteTask(taskId);
+        });
+    };
+
     return (
         <section
             aria-labelledby="tasks-heading"
@@ -29,9 +46,9 @@ export default function DashboardTasks({ tasks }: DashboardTasksProps) {
                 </Link>
             </div>
 
-            {tasks.length > 0 ? (
+            {optimisticTasks.length > 0 ? (
                 <div className="space-y-3">
-                    {tasks.map((task) => (
+                    {optimisticTasks.map((task) => (
                         <div
                             key={task.id}
                             className="flex items-center justify-between gap-2 p-1 rounded-2xl transition-colors hover:bg-slate-50/60"
@@ -40,7 +57,10 @@ export default function DashboardTasks({ tasks }: DashboardTasksProps) {
                                 <TaskListItem task={task} />
                             </div>
                             <div className="shrink-0 pr-2">
-                                <DeleteTaskButton taskId={task.id} />
+                                <DeleteTaskButton
+                                    taskId={task.id}
+                                    onDelete={handleDeleteTask}
+                                />
                             </div>
                         </div>
                     ))}

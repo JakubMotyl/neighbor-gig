@@ -70,13 +70,16 @@ export const deleteTask = async (taskId: string) => {
 
     const userId = session.user.id;
 
-    await prisma.task.delete({
-        where: {
-            id: taskId,
-            authorId: userId,
-        },
-    });
-
+    try {
+        await prisma.task.delete({
+            where: {
+                id: taskId,
+                authorId: userId,
+            },
+        });
+    } catch (err) {
+        throw new Error("Nie udało się usunąć ogłoszenia.");
+    }
     revalidatePath("/profil/edytuj");
     revalidatePath("/zlecenia");
 };
