@@ -7,6 +7,7 @@ import ZlecenieCardSkeleton from "../shared/ZlecenieCardSkeleton";
 import { Loader2, SearchX } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { useMemo } from "react";
 
 export default function ZleceniaList() {
     const searchParams = useSearchParams();
@@ -33,7 +34,10 @@ export default function ZleceniaList() {
         getNextPageParam: (lastPage) => lastPage.nextSkip,
     });
 
-    const allTasks = data?.pages.flatMap((page) => page.tasks) ?? [];
+    const allTasks = useMemo(
+        () => data?.pages.flatMap((page) => page.tasks) ?? [],
+        [data],
+    );
     const totalTasksCount = data?.pages[0]?.totalTasks ?? 0;
 
     if (isLoading) {
