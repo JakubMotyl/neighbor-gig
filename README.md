@@ -18,7 +18,7 @@ A modern, fullstack web platform connecting neighbors to outsource everyday task
 - **Database & ORM:** PostgreSQL with [Prisma ORM](prisma/schema.prisma)
 - **Authentication:** [NextAuth.js v5](lib/auth.ts) (OAuth with Google + Credentials Strategy)
 - **Validation:** [Zod](lib/zod.ts) (Type inference and runtime schema validation)
-- **State Management & Caching:** TanStack Query + Next.js Server Cache (`revalidatePath`)
+- **State Management & Performance:** TanStack Query, React 19 `useOptimistic` (zero-latency UI mutations), `useMemo` computation memoization, and Next.js Server Cache (`revalidatePath`)
 - **Styling:** Tailwind CSS + Lucide Icons
 - **Testing & CI/CD:** [Playwright](tests/) running on [GitHub Actions CI Pipeline](.github/workflows/playwright.yml)
 
@@ -35,9 +35,9 @@ A modern, fullstack web platform connecting neighbors to outsource everyday task
 
 ### Task Discovery & Management
 
-- **Hyperlocal Feed:** Filter tasks by category, price ranges, date, and keyword search.
-- **Infinite / Paginated Data:** Optimized task fetching using server-side pagination ([paginatedTasks.ts](app/actions/paginatedTasks.ts)) and TanStack Query.
-- **Task Lifecycle:** Create, inspect, and delete tasks with instant UI updates and confirmation modals.
+- **Hyperlocal Feed:** Filter tasks by category, price ranges, date, and keyword search with memoized search suggestions and regex validation.
+- **Infinite / Paginated Data:** Optimized task fetching using server-side pagination ([paginatedTasks.ts](app/actions/paginatedTasks.ts)), TanStack Query, and stable memoized page flattening.
+- **Optimistic Task & Offer Lifecycle:** Instant UI responses using React 19 `useOptimistic` for task deletion and offer status transitions with server-side rollback resilience.
 - **Offer Placement:** Real-time offer submission on active requests with author inspection ([offers.ts](app/actions/offers.ts)).
 
 ### Security & Data Integrity
@@ -240,5 +240,4 @@ npx playwright test --ui
 
 - **Real-time Messaging:** WebSocket / SSE integration for instant inbox chat notifications between neighbors.
 - **Payments & Escrow:** Stripe Connect integration for automated payouts and escrow protection upon task completion.
-- **Optimistic UI Updates:** Implementing React 19 `useOptimistic` for instantaneous task deletion and offer submission.
 - **Interactive Geo-Map:** Interactive Mapbox/Leaflet integration for radius-based task discovery.
