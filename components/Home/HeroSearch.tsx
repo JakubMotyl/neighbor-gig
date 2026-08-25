@@ -1,7 +1,7 @@
 "use client";
 import { GIG_CATEGORIES } from "@/constants/categories";
 import Button from "../shared/Button";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
 const ERROR_TIME = 1500;
@@ -34,15 +34,19 @@ export default function HomeSearch() {
     }, []);
 
     // Calculated on the fly on every render
-    const filteredCategories = GIG_CATEGORIES.filter((category) =>
-        category.name.toLowerCase().includes(searchQuery.toLowerCase()),
-    );
+    const { filteredCategories, displayCategories } = useMemo(() => {
+        const filteredCategories = GIG_CATEGORIES.filter((category) =>
+            category.name.toLowerCase().includes(searchQuery.toLowerCase()),
+        );
 
-    // Fallback UI logic: show "Other" category if search yields no results
-    const displayCategories =
-        filteredCategories.length > 0
-            ? filteredCategories
-            : GIG_CATEGORIES.filter((cat) => cat.id === "other");
+        // Fallback UI logic: show "Other" category if search yields no results
+        const displayCategories =
+            filteredCategories.length > 0
+                ? filteredCategories
+                : GIG_CATEGORIES.filter((cat) => cat.id === "other");
+
+        return { filteredCategories, displayCategories };
+    }, [searchQuery]);
 
     // Handler for direct clicks on dropdown suggestions
     const handleSelectCategory = (category: (typeof GIG_CATEGORIES)[0]) => {
