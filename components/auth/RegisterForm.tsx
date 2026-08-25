@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { signUp } from "@/lib/actions";
 import { CheckCircle2, X, Eye, EyeOff } from "lucide-react";
 import SubmitButton from "./SubmitButton";
@@ -10,12 +10,22 @@ function RegisterForm() {
     const [passwordValue, setPasswordValue] = useState<string>("");
     const [isFocused, setIsFocused] = useState<boolean>(false);
 
-    const hasLength = passwordValue.length >= 8;
-    const hasUpper = /[A-Z]/.test(passwordValue);
-    const hasDigit = /\d/.test(passwordValue);
-    const hasSign = /[^A-Za-z0-9]/.test(passwordValue);
-
-    const isPasswordPerfect = hasLength && hasUpper && hasDigit && hasSign;
+    const { hasLength, hasUpper, hasDigit, hasSign, isPasswordPerfect } =
+        useMemo(() => {
+            const hasLength = passwordValue.length >= 8;
+            const hasUpper = /[A-Z]/.test(passwordValue);
+            const hasDigit = /\d/.test(passwordValue);
+            const hasSign = /[^A-Za-z0-9]/.test(passwordValue);
+            const isPasswordPerfect =
+                hasLength && hasUpper && hasDigit && hasSign;
+            return {
+                hasLength,
+                hasUpper,
+                hasDigit,
+                hasSign,
+                isPasswordPerfect,
+            };
+        }, [passwordValue]);
 
     return (
         <form
