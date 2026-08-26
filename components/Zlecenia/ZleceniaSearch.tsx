@@ -10,14 +10,16 @@ export default function ZleceniaSearch() {
     const params = useSearchParams();
     const router = useRouter();
     const [isListOpen, setIsListOpen] = useState(false);
-    const [keyword, setKeyword] = useState<string>("");
-
+    const [keyword, setKeyword] = useState<string>(
+        () => params.get("keyword") || "",
+    );
     const [selectedCategory, setSelectedCategory] = useState<string>(() => {
         return params.get("category") || "";
     });
 
     useEffect(() => {
         setSelectedCategory(params.get("category") || "");
+        setKeyword(params.get("keyword") || "");
     }, [params]);
 
     const handleSelect = (category: string) => {
@@ -25,33 +27,32 @@ export default function ZleceniaSearch() {
         setIsListOpen(false);
     };
 
-    const handleSearch = (formData: FormData) => {
+    const handleSearchSubmit = (e: React.SyntheticEvent) => {
+        e.preventDefault();
         setIsListOpen(false);
-        const catValue = formData.get("category")?.toString().trim();
-        const keyValue = formData.get("keyword")?.toString().trim();
 
-        // Create a clean URL link
-        const newParams = new URLSearchParams();
+        const newParams = new URLSearchParams(params.toString());
+        const trimmedKeyword = keyword.trim();
 
-        if (catValue) {
-            newParams.set("category", catValue);
+        if (trimmedKeyword) {
+            newParams.set("keyword", trimmedKeyword);
+        } else {
+            newParams.delete("keyword");
         }
-        if (keyValue) {
-            newParams.set("keyword", keyValue);
+
+        if (selectedCategory) {
+            newParams.set("category", selectedCategory);
+        } else {
+            newParams.delete("category");
         }
 
         const queryString = newParams.toString();
-
-        queryString
-            ? router.push("/zlecenia?" + queryString)
-            : router.push("/zlecenia");
+        router.push(queryString ? `/zlecenia?${queryString}` : "/zlecenia");
     };
 
-    // Update category name after switching
     const currentCategoryObj = GIG_CATEGORIES.find(
         (el) => el.slug === selectedCategory,
     );
-
     const displayLabel = currentCategoryObj
         ? currentCategoryObj.name
         : "Wszystkie kategorie";
@@ -61,15 +62,11 @@ export default function ZleceniaSearch() {
             <div className="w-full max-w-5xl mx-auto">
                 <div className="rounded-3xl bg-surface shadow-sm border border-gray-100">
                     <form
-                        action={handleSearch}
+                        onSubmit={handleSearchSubmit}
                         className="flex flex-col md:flex-row md:items-stretch divide-y divide-gray-100 md:divide-y-0 md:divide-x border-gray-100"
-                        aria-label="Wyszukaj usługę"
+                        aria-label="Wyszukaj usługi"
                     >
                         <div className="flex items-center gap-3 px-4 py-3 md:px-5 md:py-4 md:min-w-65 relative">
-                            <label htmlFor="category" className="sr-only">
-                                Kategoria
-                            </label>
-
                             <button
                                 type="button"
                                 onClick={() => setIsListOpen((prev) => !prev)}
@@ -85,7 +82,6 @@ export default function ZleceniaSearch() {
                                     aria-hidden="true"
                                 />
                             </button>
-
                             {isListOpen && (
                                 <div className="absolute top-full left-4 right-4 md:left-5 md:right-5 z-50 mt-2 rounded-2xl bg-surface shadow-xl border border-gray-100 p-2 flex flex-col gap-0.5 animate-in fade-in slide-in-from-top-1 duration-150">
                                     <button
@@ -99,12 +95,10 @@ export default function ZleceniaSearch() {
                                     >
                                         Wszystkie kategorie
                                     </button>
-
                                     {GIG_CATEGORIES.map((category) => {
                                         const Icon = category.icon;
                                         const isSelected =
                                             selectedCategory === category.slug;
-
                                         return (
                                             <button
                                                 key={category.id}
@@ -129,7 +123,6 @@ export default function ZleceniaSearch() {
                                 </div>
                             )}
                         </div>
-
                         <div className="flex items-center gap-3 px-4 py-3 md:px-5 md:py-4 flex-1">
                             <label htmlFor="keyword" className="sr-only">
                                 Szukaj po tytule
@@ -144,7 +137,6 @@ export default function ZleceniaSearch() {
                                 className="w-full bg-transparent text-base md:text-lg font-semibold text-text-main outline-none placeholder:text-text-muted/70 placeholder:font-normal focus-visible:outline-none"
                             />
                         </div>
-
                         <div className="px-4 py-3 md:px-5 md:py-4 flex items-center md:min-w-40">
                             <Button
                                 type="submit"
@@ -154,13 +146,6 @@ export default function ZleceniaSearch() {
                                 Szukaj
                             </Button>
                         </div>
-
-                        {/* Hidden input for managing category in URLSearchParams */}
-                        <input
-                            type="hidden"
-                            name="category"
-                            value={selectedCategory}
-                        />
                     </form>
                 </div>
             </div>
