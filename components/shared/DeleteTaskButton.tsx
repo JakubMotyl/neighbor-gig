@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, memo } from "react";
 import { Trash2, AlertCircle } from "lucide-react";
 
 interface DeleteTaskButtonProps {
@@ -8,10 +8,7 @@ interface DeleteTaskButtonProps {
     onDelete: (taskId: string) => void;
 }
 
-export default function DeleteTaskButton({
-    taskId,
-    onDelete,
-}: DeleteTaskButtonProps) {
+function DeleteTaskButton({ taskId, onDelete }: DeleteTaskButtonProps) {
     const [isOpen, setIsOpen] = useState(false);
 
     const handleClick = () => {
@@ -80,3 +77,5 @@ export default function DeleteTaskButton({
         </>
     );
 }
+
+export default memo(DeleteTaskButton);

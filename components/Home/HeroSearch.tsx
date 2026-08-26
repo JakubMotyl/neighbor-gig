@@ -33,7 +33,6 @@ export default function HomeSearch() {
         };
     }, []);
 
-    // Calculated on the fly on every render
     const { filteredCategories, displayCategories } = useMemo(() => {
         const filteredCategories = GIG_CATEGORIES.filter((category) =>
             category.name.toLowerCase().includes(searchQuery.toLowerCase()),
@@ -56,7 +55,7 @@ export default function HomeSearch() {
     };
 
     // Form submission handler
-    const handleSearch = () => {
+    const handleSubmit = () => {
         setIsOpen(false);
         const query = searchQuery.trim();
 
@@ -102,7 +101,7 @@ export default function HomeSearch() {
             <form
                 onSubmit={(e) => {
                     e.preventDefault();
-                    handleSearch();
+                    handleSubmit();
                 }}
                 className="flex w-full flex-col gap-3 md:flex-row md:items-center bg-surface p-2 rounded-2xl shadow-sm border border-gray-200 transition-colors focus-within:border-primary focus-within:ring-4 focus-within:ring-primary/10"
             >

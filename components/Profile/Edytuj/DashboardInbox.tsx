@@ -1,6 +1,6 @@
 "use client";
 
-import { startTransition, useOptimistic, useState } from "react";
+import { startTransition, useCallback, useOptimistic, useState } from "react";
 import Image from "next/image";
 import {
     MessageSquare,
@@ -86,15 +86,15 @@ export default function DashboardInbox({
         }
     };
 
-    const handleRespond = (
-        offerId: string,
-        status: "ACCEPTED" | "REJECTED",
-    ) => {
-        startTransition(async () => {
-            setOptimisticReceivedOffers({ offerId, status });
-            await respondToOffer(offerId, status);
-        });
-    };
+    const handleRespond = useCallback(
+        (offerId: string, status: "ACCEPTED" | "REJECTED") => {
+            startTransition(async () => {
+                setOptimisticReceivedOffers({ offerId, status });
+                await respondToOffer(offerId, status);
+            });
+        },
+        [],
+    );
 
     return (
         <section className="bg-surface rounded-3xl p-6 border border-gray-100 shadow-sm flex flex-col h-full">

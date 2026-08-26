@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Task } from "@/lib/generated/prisma/client";
 import TaskListItem from "@/components/shared/TaskListItem";
 import DeleteTaskButton from "@/components/shared/DeleteTaskButton";
-import { startTransition, useOptimistic, useTransition } from "react";
+import { startTransition, useOptimistic, useCallback } from "react";
 import { deleteTask } from "@/app/actions/offers";
 
 interface DashboardTasksProps {
@@ -19,12 +19,12 @@ export default function DashboardTasks({ tasks }: DashboardTasksProps) {
         },
     );
 
-    const handleDeleteTask = (taskId: string) => {
+    const handleDeleteTask = useCallback((taskId: string) => {
         startTransition(async () => {
             setOptimisticTasks(taskId);
             await deleteTask(taskId);
         });
-    };
+    }, []);
 
     return (
         <section
