@@ -5,6 +5,7 @@ import HowItWorks from "@/components/Home/HowItWorks";
 import ScrollHandler from "@/components/Home/ScrollHandler";
 import FaqSection from "@/components/Home/FaqSection";
 import { Toast } from "@/components/auth/Toast";
+import { Suspense } from "react";
 
 export default async function HomePage({
     searchParams,
@@ -14,7 +15,9 @@ export default async function HomePage({
     const params = await searchParams;
     return (
         <>
-            <ScrollHandler />
+            <Suspense fallback={null}>
+                <ScrollHandler />
+            </Suspense>
             <Hero />
             <PopularTasks />
             <TrustAndPro />

@@ -1,9 +1,8 @@
 "use client";
 
 import ZlecenieCard from "./ZlecenieCard";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import { getPaginatedTasks } from "@/app/actions/paginatedTasks";
-import ZlecenieCardSkeleton from "../shared/ZlecenieCardSkeleton";
 import { Loader2, SearchX } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
@@ -19,50 +18,20 @@ export default function ZleceniaList() {
     // Check if user has active filters
     const hasActiveFilters = !!(category || keyword || sort);
 
-    const {
-        data,
-        fetchNextPage,
-        hasNextPage,
-        isFetchingNextPage,
-        isLoading,
-        isError,
-    } = useInfiniteQuery({
-        queryKey: ["zlecenia", category, keyword, sort],
-        queryFn: ({ pageParam = 0 }) =>
-            getPaginatedTasks(pageParam, 10, category, keyword, sort),
-        initialPageParam: 0,
-        getNextPageParam: (lastPage) => lastPage.nextSkip,
-    });
+    const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+        useSuspenseInfiniteQuery({
+            queryKey: ["zlecenia", category, keyword, sort],
+            queryFn: ({ pageParam = 0 }) =>
+                getPaginatedTasks(pageParam, 10, category, keyword, sort),
+            initialPageParam: 0,
+            getNextPageParam: (lastPage) => lastPage.nextSkip,
+        });
 
     const allTasks = useMemo(
         () => data?.pages.flatMap((page) => page.tasks) ?? [],
         [data],
     );
     const totalTasksCount = data?.pages[0]?.totalTasks ?? 0;
-
-    if (isLoading) {
-        return (
-            <section className="w-full mx-auto py-4">
-                <div className="mb-6 flex justify-between items-center">
-                    <div className="h-5 w-40 bg-gray-200 rounded animate-pulse" />
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {Array.from({ length: 6 }).map((_, index) => (
-                        <ZlecenieCardSkeleton key={index} />
-                    ))}
-                </div>
-            </section>
-        );
-    }
-
-    if (isError) {
-        return (
-            <div className="w-full py-8 text-center text-red-500" role="alert">
-                Wystąpił błąd podczas pobierania zleceń. Spróbuj odświeżyć
-                stronę.
-            </div>
-        );
-    }
 
     return (
         <section className="w-full mx-auto py-4">
